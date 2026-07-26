@@ -1,0 +1,405 @@
+'use client';
+
+import { SparklesIcon, WrenchIcon, SettingsIcon, ZapIcon } from './Icons';
+
+const CATEGORIES = [
+  { icon: SparklesIcon, label: 'Cleaning' },
+  { icon: WrenchIcon,   label: 'Repairing' },
+  { icon: SettingsIcon, label: 'Assembly' },
+  { icon: ZapIcon,      label: 'Electrical' },
+];
+
+const HERO_IMAGE =
+  'https://www.figma.com/api/mcp/asset/9d4e1be0-7193-48cc-835b-97a7e39bae8a';
+const BLOB_IMAGE =
+  'https://www.figma.com/api/mcp/asset/713cfc70-9979-44e0-b80f-0344f67edc59';
+
+export default function HeroSection() {
+  return (
+    <section
+      style={{
+        position: 'relative',
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        overflow: 'hidden',
+        background: '#0D0120',
+        paddingTop: '100px',
+        paddingBottom: '60px',
+        borderRadius: '0 0 50px 50px',
+      }}
+    >
+      {/* Background blob decoration */}
+      <div
+        className="animate-blob"
+        style={{
+          position: 'absolute',
+          top: '-10%',
+          right: '-5%',
+          width: '700px',
+          height: '700px',
+          background:
+            'radial-gradient(ellipse at center, rgba(165, 74, 255, 0.35) 0%, rgba(132, 48, 224, 0.2) 40%, transparent 70%)',
+          borderRadius: '50%',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '10%',
+          left: '-8%',
+          width: '400px',
+          height: '400px',
+          background:
+            'radial-gradient(ellipse at center, rgba(165, 74, 255, 0.15) 0%, transparent 70%)',
+          borderRadius: '50%',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
+
+      {/* Small decorative dots */}
+      {[
+        { top: '20%', left: '8%' },
+        { top: '65%', left: '6%' },
+        { top: '30%', right: '5%', left: 'auto' },
+      ].map((pos, i) => (
+        <div
+          key={i}
+          style={{
+            position: 'absolute',
+            width: '6px',
+            height: '6px',
+            borderRadius: '50%',
+            background: 'rgba(165, 74, 255, 0.6)',
+            boxShadow: '0 0 12px rgba(165, 74, 255, 0.8)',
+            ...pos,
+            zIndex: 0,
+          }}
+        />
+      ))}
+
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '60px',
+            alignItems: 'center',
+          }}
+        >
+          {/* Left — Copy */}
+          <div>
+            {/* Badge */}
+            <div
+              className="hero-text-1"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'rgba(165, 74, 255, 0.15)',
+                border: '1px solid rgba(165, 74, 255, 0.3)',
+                borderRadius: '9999px',
+                padding: '6px 14px 6px 8px',
+                marginBottom: '24px',
+              }}
+            >
+              <span
+                style={{
+                  background: 'linear-gradient(135deg, #BF75FF 0%, #A54AFF 50%, #8430E0 100%)',
+                  borderRadius: '9999px',
+                  padding: '3px 10px',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: '#ffffff',
+                  fontFamily: 'Poppins, sans-serif',
+                }}
+              >
+                Experience More!
+              </span>
+              <span
+                style={{
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  color: 'rgba(255,255,255,0.8)',
+                  fontFamily: 'Poppins, sans-serif',
+                }}
+              >
+                Download the App Today
+              </span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path
+                  d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5"
+                  stroke="rgba(165, 74, 255, 0.9)"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+
+            {/* H1 */}
+            <h1
+              className="hero-text-2"
+              style={{
+                fontFamily: 'Poppins, sans-serif',
+                fontWeight: 800,
+                fontSize: '56px',
+                lineHeight: '1.1',
+                letterSpacing: '-0.02em',
+                color: '#ffffff',
+                marginBottom: '20px',
+              }}
+            >
+              Find{' '}
+              <span
+                style={{
+                  background:
+                    'linear-gradient(135deg, #BF75FF 0%, #A54AFF 50%, #8430E0 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                handymen
+              </span>{' '}
+              at your doorstep!
+            </h1>
+
+            {/* Subtitle */}
+            <p
+              className="hero-text-3"
+              style={{
+                fontFamily: 'Poppins, sans-serif',
+                fontWeight: 400,
+                fontSize: '17px',
+                lineHeight: '1.7',
+                color: 'rgba(255,255,255,0.65)',
+                marginBottom: '36px',
+                maxWidth: '460px',
+              }}
+            >
+              From cleaning to grass cutting, easily connect with trusted service
+              providers for all your home needs.
+            </p>
+
+            {/* Search bar */}
+            <div
+              className="hero-text-4"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.12)',
+                borderRadius: '9999px',
+                padding: '6px 6px 6px 20px',
+                gap: '12px',
+                maxWidth: '500px',
+                backdropFilter: 'blur(12px)',
+                marginBottom: '24px',
+              }}
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                style={{ flexShrink: 0, opacity: 0.5 }}
+              >
+                <circle
+                  cx="8"
+                  cy="8"
+                  r="5.5"
+                  stroke="white"
+                  strokeWidth="1.5"
+                />
+                <path
+                  d="M12.5 12.5L16 16"
+                  stroke="white"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+              <span
+                style={{
+                  flex: 1,
+                  fontSize: '14px',
+                  color: 'rgba(255,255,255,0.4)',
+                  fontFamily: 'Poppins, sans-serif',
+                  userSelect: 'none',
+                }}
+              >
+                Try cleaning, gardening, or plumbing...
+              </span>
+              <button
+                style={{
+                  background:
+                    'linear-gradient(135deg, #BF75FF 0%, #A54AFF 50%, #8430E0 100%)',
+                  color: '#ffffff',
+                  fontFamily: 'Poppins, sans-serif',
+                  fontWeight: 600,
+                  fontSize: '14px',
+                  padding: '10px 24px',
+                  borderRadius: '9999px',
+                  cursor: 'pointer',
+                  border: 'none',
+                  whiteSpace: 'nowrap',
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 2px 12px rgba(165, 74, 255, 0.4)',
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.transform =
+                    'scale(1.03)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
+                }}
+              >
+                Search
+              </button>
+            </div>
+
+            {/* Quick category filters */}
+            <div
+              className="hero-text-4"
+              style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}
+            >
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat.label}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    background: 'rgba(255,255,255,0.06)',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    borderRadius: '9999px',
+                    padding: '7px 14px',
+                    fontSize: '13px',
+                    fontWeight: 500,
+                    color: 'rgba(255,255,255,0.8)',
+                    fontFamily: 'Poppins, sans-serif',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    backdropFilter: 'blur(8px)',
+                  }}
+                  onMouseEnter={(e) => {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.background = 'rgba(165, 74, 255, 0.2)';
+                    el.style.borderColor = 'rgba(165, 74, 255, 0.5)';
+                    el.style.color = '#ffffff';
+                  }}
+                  onMouseLeave={(e) => {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.background = 'rgba(255,255,255,0.06)';
+                    el.style.borderColor = 'rgba(255,255,255,0.12)';
+                    el.style.color = 'rgba(255,255,255,0.8)';
+                  }}
+                >
+                  <cat.icon size={15} color="rgba(255,255,255,0.85)" />
+                  {cat.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Stats strip */}
+            <div
+              style={{
+                display: 'flex',
+                gap: '28px',
+                marginTop: '36px',
+                paddingTop: '28px',
+                borderTop: '1px solid rgba(255,255,255,0.08)',
+              }}
+            >
+              {[
+                { value: '1,000+', label: 'App Downloads' },
+                { value: '751+', label: 'Active Users' },
+                { value: '4.8★', label: 'Avg. Rating' },
+              ].map((stat) => (
+                <div key={stat.label}>
+                  <div
+                    style={{
+                      fontFamily: 'Poppins, sans-serif',
+                      fontWeight: 700,
+                      fontSize: '22px',
+                      color: '#ffffff',
+                      lineHeight: '1',
+                      marginBottom: '4px',
+                    }}
+                  >
+                    {stat.value}
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: 'Poppins, sans-serif',
+                      fontSize: '12px',
+                      color: 'rgba(255,255,255,0.5)',
+                    }}
+                  >
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right — Hero image */}
+          <div
+            style={{
+              position: 'relative',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'flex-end',
+            }}
+          >
+            {/* Glow circle behind image */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: '10%',
+                background:
+                  'radial-gradient(circle, rgba(165, 74, 255, 0.3) 0%, transparent 70%)',
+                borderRadius: '50%',
+                filter: 'blur(40px)',
+              }}
+            />
+            {/* Large arc/blob from Figma */}
+            <img
+              src={BLOB_IMAGE}
+              alt=""
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                top: '-5%',
+                left: '-5%',
+                width: '110%',
+                height: '110%',
+                objectFit: 'contain',
+                opacity: 0.4,
+                pointerEvents: 'none',
+              }}
+            />
+            <img
+              src={HERO_IMAGE}
+              alt="Professional handymen ready to help"
+              className="animate-float hero-image"
+              style={{
+                width: '100%',
+                maxWidth: '520px',
+                height: 'auto',
+                objectFit: 'contain',
+                position: 'relative',
+                zIndex: 1,
+                filter: 'drop-shadow(0 32px 48px rgba(165, 74, 255, 0.25))',
+              }}
+            />
+          </div>
+        </div>
+      </div>
+
+    </section>
+  );
+}
