@@ -27,31 +27,31 @@ type PillItem   = {
 type RowItem = CircleItem | AvatarItem | PillItem;
 
 const ROW1: RowItem[] = [
-  { type: 'circle', bg: '#A54AFF' },
+  { type: 'circle', bg: '#FDBA74' },
   { type: 'pill', icon: SparklesIcon, iconColor: '#A54AFF', iconBg: '#F0E8FF', label: 'Cleaning',   sub: '128 sub-categories' },
   { type: 'avatar', src: S1, alt: 'John Doe' },
-  { type: 'circle', bg: '#7220CC' },
+  { type: 'circle', bg: '#F9A8D4' },
   { type: 'pill', icon: WrenchIcon,   iconColor: '#8C2EE8', iconBg: '#EDE0FF', label: 'Repairing',  sub: '94 sub-categories' },
-  { type: 'circle', bg: '#CA90FF' },
+  { type: 'circle', bg: '#FDBA74' },
   { type: 'avatar', src: S2, alt: 'Chris Gale' },
   { type: 'pill', icon: ZapIcon,      iconColor: '#7220CC', iconBg: '#E8DAFF', label: 'Electrical', sub: '52 sub-categories' },
-  { type: 'circle', bg: '#8C2EE8' },
+  { type: 'circle', bg: '#93C5FD' },
   { type: 'avatar', src: S3, alt: 'Olivia Rhye' },
-  { type: 'circle', bg: '#B86CFF' },
+  { type: 'circle', bg: '#FDBA74' },
 ];
 
 const ROW2: RowItem[] = [
-  { type: 'circle', bg: '#7220CC' },
+  { type: 'circle', bg: '#86EFAC' },
   { type: 'pill', icon: SettingsIcon, iconColor: '#7220CC', iconBg: '#E8DAFF', label: 'Assembly',  sub: '67 sub-categories' },
-  { type: 'circle', bg: '#A54AFF' },
+  { type: 'circle', bg: '#FDBA74' },
   { type: 'avatar', src: S4, alt: 'Sam Smith' },
   { type: 'pill', icon: LeafIcon,     iconColor: '#A54AFF', iconBg: '#F0E8FF', label: 'Gardening', sub: '85 sub-categories' },
-  { type: 'circle', bg: '#8C2EE8' },
+  { type: 'circle', bg: '#F9A8D4' },
   { type: 'pill', icon: DropletsIcon, iconColor: '#8C2EE8', iconBg: '#EDE0FF', label: 'Plumbing',  sub: '73 sub-categories' },
   { type: 'avatar', src: S1, alt: 'John' },
-  { type: 'circle', bg: '#B86CFF' },
+  { type: 'circle', bg: '#FDBA74' },
   { type: 'pill', icon: PaintbrushIcon, iconColor: '#7220CC', iconBg: '#E8DAFF', label: 'Painting', sub: '44 sub-categories' },
-  { type: 'circle', bg: '#A54AFF' },
+  { type: 'circle', bg: '#CA90FF' },
   { type: 'avatar', src: S2, alt: 'Chris' },
   { type: 'pill', icon: PackageIcon,  iconColor: '#A54AFF', iconBg: '#F0E8FF', label: 'Moving',    sub: '39 sub-categories' },
 ];
@@ -133,7 +133,7 @@ function PillEl({ icon: Icon, iconColor, iconBg, label, sub }: Omit<PillItem, 't
         style={{
           width: 58,
           height: 58,
-          borderRadius: 16,
+          borderRadius: '50%',
           background: iconBg,
           display: 'flex',
           alignItems: 'center',
@@ -218,6 +218,7 @@ export default function CategoriesSection() {
         padding: '56px 0',
         overflow: 'hidden',
         position: 'relative',
+        borderRadius: '50px',
       }}
     >
       {/* Top divider */}

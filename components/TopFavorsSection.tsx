@@ -1,16 +1,12 @@
 'use client';
 
-import { StarIcon, BookmarkIcon } from './Icons';
-
-const SERVICE_IMAGE =
-  'https://www.figma.com/api/mcp/asset/f29e8f2b-625e-4088-b547-f71c3e47d009';
+import { StarIcon, HeartIcon } from './Icons';
 
 const FAVORS = [
   {
-    image: SERVICE_IMAGE,
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&w=600&q=80',
     title: 'I will deep clean your home',
     price: '$253',
-    tags: ['Cleaning', 'Home cleaning', 'Gardening', '+2'],
     sellerAvatar: 'https://www.figma.com/api/mcp/asset/365e78fd-64a3-4ca4-8ff5-37881d84c909',
     seller: 'Alfonzo Schuessler',
     sellerBadge: 'Pro',
@@ -18,10 +14,9 @@ const FAVORS = [
     reviews: '8,89',
   },
   {
-    image: SERVICE_IMAGE,
+    image: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&w=600&q=80',
     title: 'I will fix all your electrical issues',
     price: '$180',
-    tags: ['Electrical', 'Wiring', 'Safety'],
     sellerAvatar: 'https://www.figma.com/api/mcp/asset/5b492be2-d1f4-4f61-910d-997a1856c652',
     seller: 'James Thornton',
     sellerBadge: 'Team',
@@ -29,10 +24,9 @@ const FAVORS = [
     reviews: '5,214',
   },
   {
-    image: SERVICE_IMAGE,
+    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&w=600&q=80',
     title: 'Professional furniture assembly service',
     price: '$95',
-    tags: ['Assembly', 'Furniture', 'IKEA'],
     sellerAvatar: 'https://www.figma.com/api/mcp/asset/a3b4ae63-d5ed-4287-bcf6-0d976e78c83b',
     seller: 'Maria Santos',
     sellerBadge: 'Pro',
@@ -41,33 +35,9 @@ const FAVORS = [
   },
 ];
 
-function TagPill({ label }: { label: string }) {
-  const isExtra = label.startsWith('+');
-  return (
-    <span
-      style={{
-        fontFamily: 'Poppins, sans-serif',
-        fontSize: '12px',
-        fontWeight: 500,
-        color: isExtra ? '#A54AFF' : '#344054',
-        background: isExtra ? '#F8F0FF' : '#F2F4F7',
-        borderRadius: '9999px',
-        padding: '4px 12px',
-        whiteSpace: 'nowrap',
-        border: isExtra ? '1px solid #DFBAFF' : '1px solid #EAECF0',
-      }}
-    >
-      {label}
-    </span>
-  );
-}
-
 export default function TopFavorsSection() {
   return (
-    <section
-      id="favors"
-      style={{ padding: '96px 0', background: '#ffffff' }}
-    >
+    <section id="favors" style={{ padding: '96px 0', background: '#ffffff' }}>
       <div className="container">
         {/* Header */}
         <div
@@ -147,12 +117,8 @@ export default function TopFavorsSection() {
               transition: 'all 0.2s ease',
               whiteSpace: 'nowrap',
             }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = '#F8F0FF';
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.background = 'transparent';
-            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = '#F8F0FF'; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
           >
             View All Favors
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -162,13 +128,7 @@ export default function TopFavorsSection() {
         </div>
 
         {/* Cards */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '24px',
-          }}
-        >
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
           {FAVORS.map((favor, i) => (
             <div
               key={favor.title}
@@ -179,24 +139,25 @@ export default function TopFavorsSection() {
                 borderRadius: '20px',
                 border: '1.5px solid #EAECF0',
                 cursor: 'pointer',
-                transition: 'border-color 0.2s ease',
+                transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+                display: 'flex',
+                flexDirection: 'column',
+                overflow: 'hidden',
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(165, 74, 255, 0.3)';
+                const el = e.currentTarget as HTMLElement;
+                el.style.borderColor = 'rgba(165, 74, 255, 0.3)';
+                el.style.boxShadow = '0 8px 24px rgba(165,74,255,0.1)';
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = '#EAECF0';
+                const el = e.currentTarget as HTMLElement;
+                el.style.borderColor = '#EAECF0';
+                el.style.boxShadow = 'none';
               }}
             >
-              {/* Image — inset with padding on top + sides, rounded corners */}
-              <div style={{ padding: '10px 10px 0' }}>
-                <div
-                  style={{
-                    height: '200px',
-                    borderRadius: '14px',
-                    overflow: 'hidden',
-                  }}
-                >
+              {/* Image */}
+              <div style={{ position: 'relative', padding: '10px 10px 0' }}>
+                <div style={{ height: '200px', borderRadius: '14px', overflow: 'hidden' }}>
                   <img
                     src={favor.image}
                     alt={favor.title}
@@ -206,164 +167,94 @@ export default function TopFavorsSection() {
                       objectFit: 'cover',
                       transition: 'transform 0.4s ease',
                     }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.04)';
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)';
-                    }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.04)'; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'; }}
                   />
+                </div>
+                {/* Badge overlaid on image */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '20px',
+                    right: '20px',
+                    background: favor.sellerBadge === 'Pro'
+                      ? 'linear-gradient(135deg, #BF75FF 0%, #A54AFF 100%)'
+                      : 'linear-gradient(135deg, #34D399 0%, #079455 100%)',
+                    borderRadius: '8px',
+                    padding: '4px 10px',
+                    fontFamily: 'Poppins, sans-serif',
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    color: '#ffffff',
+                    letterSpacing: '0.03em',
+                  }}
+                >
+                  {favor.sellerBadge}
                 </div>
               </div>
 
               {/* Card body */}
-              <div style={{ padding: '16px 16px 18px' }}>
+              <div style={{ padding: '16px 16px 18px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                {/* Seller row */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
+                  <img
+                    src={favor.sellerAvatar}
+                    alt={favor.seller}
+                    style={{
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '9999px',
+                      objectFit: 'cover',
+                      objectPosition: 'top',
+                      flexShrink: 0,
+                      border: '2px solid #DFBAFF',
+                    }}
+                  />
+                  <div>
+                    <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 600, fontSize: '13px', color: '#101828', lineHeight: '1.2' }}>
+                      {favor.seller}
+                    </p>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}>
+                      <StarIcon size={12} color="#F79009" />
+                      <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: '12px', fontWeight: 600, color: '#F79009' }}>
+                        {favor.rating}
+                      </span>
+                      <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', color: '#98A2B3' }}>
+                        ({favor.reviews})
+                      </span>
+                    </div>
+                  </div>
+                </div>
 
-                {/* 1. Title */}
+                {/* Title */}
                 <h3
                   style={{
                     fontFamily: 'Poppins, sans-serif',
                     fontWeight: 600,
-                    fontSize: '16px',
+                    fontSize: '15px',
                     color: '#101828',
                     lineHeight: '1.4',
-                    marginBottom: '10px',
+                    flex: 1,
+                    marginBottom: '16px',
                   }}
                 >
                   {favor.title}
                 </h3>
 
-                {/* 2. Tags — regular tags clip on overflow, +N always pinned at end */}
-                <div
-                  style={{
-                    display: 'flex',
-                    gap: '6px',
-                    alignItems: 'center',
-                    marginBottom: '12px',
-                    overflow: 'hidden',
-                  }}
-                >
-                  {/* Regular tags: nowrap + overflow hidden so they never push +N down */}
-                  <div
-                    style={{
-                      display: 'flex',
-                      gap: '6px',
-                      flexWrap: 'nowrap',
-                      overflow: 'hidden',
-                      flex: 1,
-                    }}
-                  >
-                    {favor.tags
-                      .filter((t) => !t.startsWith('+'))
-                      .map((tag) => (
-                        <TagPill key={tag} label={tag} />
-                      ))}
-                  </div>
-                  {/* +N pill — always visible, never wraps */}
-                  {favor.tags.find((t) => t.startsWith('+')) && (
-                    <TagPill
-                      label={favor.tags.find((t) => t.startsWith('+'))!}
-                    />
-                  )}
-                </div>
-
-                {/* 3. Price — large, brand colour */}
-                <p
-                  style={{
-                    fontFamily: 'Poppins, sans-serif',
-                    fontWeight: 700,
-                    fontSize: '24px',
-                    background: 'linear-gradient(135deg, #BF75FF 0%, #A54AFF 50%, #8430E0 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    marginBottom: '14px',
-                    lineHeight: '1',
-                  }}
-                >
-                  {favor.price}
-                </p>
-
-                {/* 4. Seller row */}
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    paddingBottom: '12px',
-                    borderBottom: '1px solid #EAECF0',
-                    marginBottom: '12px',
-                  }}
-                >
-                  <img
-                    src={favor.sellerAvatar}
-                    alt={favor.seller}
-                    style={{
-                      width: '28px',
-                      height: '28px',
-                      borderRadius: '9999px',
-                      objectFit: 'cover',
-                      objectPosition: 'top',
-                      flexShrink: 0,
-                    }}
-                  />
-                  <span
-                    style={{
-                      fontFamily: 'Poppins, sans-serif',
-                      fontWeight: 600,
-                      fontSize: '13px',
-                      color: '#101828',
-                      flex: 1,
-                    }}
-                  >
-                    {favor.seller}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: 'Poppins, sans-serif',
-                      fontSize: '11px',
-                      fontWeight: 600,
-                      color: favor.sellerBadge === 'Pro' ? '#A54AFF' : '#079455',
-                      background: favor.sellerBadge === 'Pro' ? '#F8F0FF' : '#ECFDF3',
-                      padding: '3px 10px',
-                      borderRadius: '9999px',
-                      border: favor.sellerBadge === 'Pro' ? '1px solid #DFBAFF' : '1px solid #A7F3D0',
-                    }}
-                  >
-                    {favor.sellerBadge}
-                  </span>
-                </div>
-
-                {/* 5. Rating + bookmark */}
+                {/* Bottom: heart + price */}
                 <div
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
+                    paddingTop: '12px',
+                    borderTop: '1px solid #EAECF0',
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <StarIcon size={14} color="#F79009" />
-                    <span
-                      style={{
-                        fontFamily: 'Poppins, sans-serif',
-                        fontWeight: 600,
-                        fontSize: '13px',
-                        color: '#101828',
-                      }}
-                    >
-                      {favor.rating}
-                    </span>
-                    <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: '12px', color: '#98A2B3' }}>|</span>
-                    <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: '12px', color: '#667085' }}>
-                      {favor.reviews} reviews
-                    </span>
-                  </div>
-
                   <button
                     style={{
-                      width: '32px',
-                      height: '32px',
+                      width: '36px',
+                      height: '36px',
                       border: '1.5px solid #EAECF0',
                       borderRadius: '9999px',
                       background: '#ffffff',
@@ -375,8 +266,8 @@ export default function TopFavorsSection() {
                     }}
                     onMouseEnter={(e) => {
                       const el = e.currentTarget as HTMLElement;
-                      el.style.borderColor = '#A54AFF';
-                      el.style.background = '#F8F0FF';
+                      el.style.borderColor = '#F43F5E';
+                      el.style.background = '#FFF1F2';
                     }}
                     onMouseLeave={(e) => {
                       const el = e.currentTarget as HTMLElement;
@@ -384,8 +275,23 @@ export default function TopFavorsSection() {
                       el.style.background = '#ffffff';
                     }}
                   >
-                    <BookmarkIcon size={15} color="#667085" />
+                    <HeartIcon size={16} color="#98A2B3" />
                   </button>
+
+                  <p
+                    style={{
+                      fontFamily: 'Poppins, sans-serif',
+                      fontWeight: 800,
+                      fontSize: '26px',
+                      background: 'linear-gradient(135deg, #BF75FF 0%, #A54AFF 50%, #8430E0 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                      lineHeight: '1',
+                    }}
+                  >
+                    {favor.price}
+                  </p>
                 </div>
               </div>
             </div>

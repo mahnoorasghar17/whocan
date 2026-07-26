@@ -45,6 +45,7 @@ export default function TopSellersSection() {
         background: '#F8F0FF',
         position: 'relative',
         overflow: 'hidden',
+        borderRadius: '50px',
       }}
     >
       {/* Dot grid background */}
@@ -195,8 +196,8 @@ export default function TopSellersSection() {
                     style={{
                       width: '100%',
                       height: '100%',
-                      objectFit: 'cover',
-                      objectPosition: 'top center',
+                      objectFit: 'contain',
+                      objectPosition: 'center bottom',
                     }}
                   />
                 </div>

@@ -56,10 +56,7 @@ export default function WhyChooseUsSection() {
             marginBottom: '40px',
           }}
         >
-          <div data-animate style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
-            <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: '12px', fontWeight: 500, color: '#98A2B3', paddingTop: '10px', flexShrink: 0 }}>
-              01
-            </span>
+          <div data-animate>
             <h2 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: '44px', lineHeight: '1.15', color: '#101828', letterSpacing: '-0.02em' }}>
               Find trusted{' '}
               <span
