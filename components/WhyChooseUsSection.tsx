@@ -207,7 +207,7 @@ export default function WhyChooseUsSection() {
           {/* ── RIGHT COLUMN ── */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
 
-            {/* Top right: text card */}
+            {/* Top right: image + text card */}
             <div
               data-animate
               data-delay="3"
@@ -215,20 +215,31 @@ export default function WhyChooseUsSection() {
                 background: '#F7F7F7',
                 borderRadius: '20px',
                 border: '1.5px solid #EAECF0',
-                padding: '24px',
                 display: 'flex',
                 flexDirection: 'column',
                 flex: 1,
+                overflow: 'hidden',
               }}
             >
-              <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: '18px', color: '#101828', marginBottom: '10px', lineHeight: '1.3' }}>
-                Trusted Local Providers
-              </h3>
-              <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '13px', color: '#475467', lineHeight: '1.65', flex: 1, marginBottom: '20px' }}>
-                All handymen are background-checked, reviewed, and rated by
-                real customers in your area.
-              </p>
-              <LearnMoreRow />
+              <div style={{ overflow: 'hidden', flexShrink: 0 }}>
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&w=400&q=80"
+                  alt="Trusted Local Providers"
+                  style={{ width: '100%', height: '130px', objectFit: 'cover', objectPosition: 'center top', display: 'block', transition: 'transform 0.4s ease' }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.04)'; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'; }}
+                />
+              </div>
+              <div style={{ padding: '18px 20px 20px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: '16px', color: '#101828', marginBottom: '8px', lineHeight: '1.3' }}>
+                  Trusted Local Providers
+                </h3>
+                <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '12px', color: '#475467', lineHeight: '1.65', flex: 1, marginBottom: '16px' }}>
+                  All handymen are background-checked, reviewed, and rated by
+                  real customers in your area.
+                </p>
+                <LearnMoreRow />
+              </div>
             </div>
 
             {/* Bottom right: icon + double arrow */}

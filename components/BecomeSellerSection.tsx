@@ -17,7 +17,7 @@ export default function BecomeSellerSection() {
         background: '#0D0120',
         position: 'relative',
         overflow: 'hidden',
-        borderRadius: '50px',
+        borderRadius: '50px 50px 0 0',
       }}
     >
       {/* Background gradient blobs */}
