@@ -3,9 +3,9 @@
 import { WrenchIcon, ShieldCheckIcon, ArrowRightIcon, ArrowUpRightIcon } from './Icons';
 
 const SERVICE_IMAGE =
-  'https://www.figma.com/api/mcp/asset/f29e8f2b-625e-4088-b547-f71c3e47d009';
+  'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&h=300&fit=crop&auto=format'; // deep home cleaning
 const SELLER_AVATAR =
-  'https://www.figma.com/api/mcp/asset/365e78fd-64a3-4ca4-8ff5-37881d84c909';
+  'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=60&h=60&fit=crop&auto=format'; // professional provider portrait
 
 // Amber matches the navbar "Get App" CTA — #FEC84B
 const AMBER = '#FEC84B';
