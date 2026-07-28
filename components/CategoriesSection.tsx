@@ -10,7 +10,6 @@ const S2 = 'https://www.figma.com/api/mcp/asset/5b492be2-d1f4-4f61-910d-997a1856
 const S3 = 'https://www.figma.com/api/mcp/asset/a3b4ae63-d5ed-4287-bcf6-0d976e78c83b';
 const S4 = 'https://www.figma.com/api/mcp/asset/ef4c66ca-0d53-45b3-bcf3-249656d7bfbd';
 
-type CircleItem = { type: 'circle'; bg: string };
 type AvatarItem = { type: 'avatar'; src: string; alt: string };
 type PillItem   = {
   type: 'pill';
@@ -21,44 +20,30 @@ type PillItem   = {
   label: string;
   sub: string;
 };
-type RowItem = CircleItem | AvatarItem | PillItem;
+type RowItem = AvatarItem | PillItem;
 
 const ROW1: RowItem[] = [
-  { type: 'circle', bg: '#FDBA74' },
   { type: 'pill', icon: SparklesIcon, iconColor: '#A54AFF', iconBg: '#F0E8FF', label: 'Cleaning',   sub: '128 sub-categories' },
   { type: 'avatar', src: S1, alt: 'John Doe' },
-  { type: 'circle', bg: '#F9A8D4' },
   { type: 'pill', icon: WrenchIcon,   iconColor: '#8C2EE8', iconBg: '#EDE0FF', label: 'Repairing',  sub: '94 sub-categories'  },
-  { type: 'circle', bg: '#FDBA74' },
   { type: 'avatar', src: S2, alt: 'Chris Gale' },
   { type: 'pill', icon: ZapIcon,      iconColor: '#7220CC', iconBg: '#E8DAFF', label: 'Electrical', sub: '52 sub-categories'  },
-  { type: 'circle', bg: '#93C5FD' },
   { type: 'avatar', src: S3, alt: 'Olivia Rhye' },
-  { type: 'circle', bg: '#FDBA74' },
 ];
 
 const ROW2: RowItem[] = [
-  { type: 'circle', bg: '#86EFAC' },
   { type: 'pill', icon: SettingsIcon,    iconColor: '#7220CC', iconBg: '#E8DAFF', label: 'Assembly',  sub: '67 sub-categories' },
-  { type: 'circle', bg: '#FDBA74' },
   { type: 'avatar', src: S4, alt: 'Sam Smith' },
   { type: 'pill', icon: LeafIcon,        iconColor: '#A54AFF', iconBg: '#F0E8FF', label: 'Gardening', sub: '85 sub-categories' },
-  { type: 'circle', bg: '#F9A8D4' },
   { type: 'pill', icon: DropletsIcon,    iconColor: '#8C2EE8', iconBg: '#EDE0FF', label: 'Plumbing',  sub: '73 sub-categories' },
   { type: 'avatar', src: S1, alt: 'John' },
-  { type: 'circle', bg: '#FDBA74' },
   { type: 'pill', icon: PaintbrushIcon,  iconColor: '#7220CC', iconBg: '#E8DAFF', label: 'Painting',  sub: '44 sub-categories' },
-  { type: 'circle', bg: '#CA90FF' },
   { type: 'avatar', src: S2, alt: 'Chris' },
   { type: 'pill', icon: PackageIcon,     iconColor: '#A54AFF', iconBg: '#F0E8FF', label: 'Moving',    sub: '39 sub-categories' },
 ];
 
 const SIZE = 110;
 const GAP  = 16;
-
-function CircleEl({ bg }: { bg: string }) {
-  return <div style={{ width: SIZE, height: SIZE, borderRadius: '50%', background: bg, flexShrink: 0 }} />;
-}
 
 function AvatarEl({ src, alt }: { src: string; alt: string }) {
   return (
@@ -90,7 +75,6 @@ function PillEl({ icon: Icon, iconColor, iconBg, label, sub }: Omit<PillItem, 't
 }
 
 function renderItem(item: RowItem, key: number) {
-  if (item.type === 'circle') return <CircleEl key={key} bg={item.bg} />;
   if (item.type === 'avatar') return <AvatarEl key={key} src={item.src} alt={item.alt} />;
   return <PillEl key={key} icon={item.icon} iconColor={item.iconColor} iconBg={item.iconBg} label={item.label} sub={item.sub} />;
 }
