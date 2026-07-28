@@ -1,6 +1,6 @@
 'use client';
 
-import { SparklesIcon, WrenchIcon, SettingsIcon, ZapIcon } from './Icons';
+import { SparklesIcon, WrenchIcon, SettingsIcon, ZapIcon, LeafIcon, DropletsIcon, PaintbrushIcon } from './Icons';
 
 const CATEGORIES = [
   { icon: SparklesIcon, label: 'Cleaning' },
@@ -396,6 +396,49 @@ export default function HeroSection() {
                 filter: 'drop-shadow(0 32px 48px rgba(165, 74, 255, 0.25))',
               }}
             />
+
+            {/* Floating service icon badges */}
+            <style>{`
+              @keyframes heroIconFloat {
+                0%, 100% { transform: translateY(0px); }
+                50%       { transform: translateY(-10px); }
+              }
+            `}</style>
+
+            {([
+              { label: 'Cleaning',   Icon: SparklesIcon,   iconColor: '#A54AFF', iconBg: '#F4EBFF', pos: { top: '8%',   left:  '0%'  }, dur: '3.6s', delay: '0s'   },
+              { label: 'Electrical', Icon: ZapIcon,         iconColor: '#D97706', iconBg: '#FFFBEB', pos: { top: '16%',  right: '0%'  }, dur: '4.3s', delay: '0.7s' },
+              { label: 'Repair',     Icon: WrenchIcon,      iconColor: '#7C3AED', iconBg: '#EDE9FE', pos: { top: '44%',  left:  '0%'  }, dur: '3.9s', delay: '1.5s' },
+              { label: 'Plumbing',   Icon: DropletsIcon,    iconColor: '#0EA5E9', iconBg: '#E0F2FE', pos: { top: '50%',  right: '0%'  }, dur: '4.6s', delay: '0.3s' },
+              { label: 'Gardening',  Icon: LeafIcon,        iconColor: '#16A34A', iconBg: '#DCFCE7', pos: { bottom: '20%', left: '3%' }, dur: '3.7s', delay: '1.1s' },
+              { label: 'Painting',   Icon: PaintbrushIcon,  iconColor: '#E11D48', iconBg: '#FFE4E6', pos: { bottom: '14%', right: '3%'}, dur: '4.1s', delay: '1.9s' },
+            ] as const).map(({ label, Icon, iconColor, iconBg, pos, dur, delay }) => (
+              <div
+                key={label}
+                style={{
+                  position: 'absolute',
+                  ...pos,
+                  zIndex: 3,
+                  background: 'rgba(255,255,255,0.88)',
+                  backdropFilter: 'blur(14px)',
+                  WebkitBackdropFilter: 'blur(14px)',
+                  border: '1.5px solid rgba(255,255,255,0.7)',
+                  borderRadius: '14px',
+                  boxShadow: '0 8px 28px rgba(0,0,0,0.11)',
+                  padding: '8px 14px 8px 8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  animation: `heroIconFloat ${dur} ease-in-out ${delay} infinite`,
+                  pointerEvents: 'none',
+                }}
+              >
+                <div style={{ width: 32, height: 32, borderRadius: '50%', background: iconBg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <Icon size={16} color={iconColor} />
+                </div>
+                <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: '12px', fontWeight: 600, color: '#101828', whiteSpace: 'nowrap' }}>{label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
