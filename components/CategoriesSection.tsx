@@ -5,10 +5,10 @@ import {
   DropletsIcon, PaintbrushIcon, PackageIcon, SettingsIcon, ArrowRightIcon,
 } from './Icons';
 
-const S1 = 'https://www.figma.com/api/mcp/asset/365e78fd-64a3-4ca4-8ff5-37881d84c909';
-const S2 = 'https://www.figma.com/api/mcp/asset/5b492be2-d1f4-4f61-910d-997a1856c652';
-const S3 = 'https://www.figma.com/api/mcp/asset/a3b4ae63-d5ed-4287-bcf6-0d976e78c83b';
-const S4 = 'https://www.figma.com/api/mcp/asset/ef4c66ca-0d53-45b3-bcf3-249656d7bfbd';
+const S1 = 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=220&h=220&fit=crop&auto=format'; // cleaning
+const S2 = 'https://images.unsplash.com/photo-1621905251189-08b1489462be?w=220&h=220&fit=crop&auto=format'; // electrical
+const S3 = 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=220&h=220&fit=crop&auto=format'; // gardening
+const S4 = 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=220&h=220&fit=crop&auto=format'; // plumbing
 
 type AvatarItem = { type: 'avatar'; src: string; alt: string };
 type PillItem   = {
@@ -24,21 +24,21 @@ type RowItem = AvatarItem | PillItem;
 
 const ROW1: RowItem[] = [
   { type: 'pill', icon: SparklesIcon, iconColor: '#A54AFF', iconBg: '#F0E8FF', label: 'Cleaning',   sub: '128 sub-categories' },
-  { type: 'avatar', src: S1, alt: 'John Doe' },
+  { type: 'avatar', src: S1, alt: 'Cleaning service' },
   { type: 'pill', icon: WrenchIcon,   iconColor: '#8C2EE8', iconBg: '#EDE0FF', label: 'Repairing',  sub: '94 sub-categories'  },
-  { type: 'avatar', src: S2, alt: 'Chris Gale' },
+  { type: 'avatar', src: S2, alt: 'Electrical work' },
   { type: 'pill', icon: ZapIcon,      iconColor: '#7220CC', iconBg: '#E8DAFF', label: 'Electrical', sub: '52 sub-categories'  },
-  { type: 'avatar', src: S3, alt: 'Olivia Rhye' },
+  { type: 'avatar', src: S3, alt: 'Gardening service' },
 ];
 
 const ROW2: RowItem[] = [
   { type: 'pill', icon: SettingsIcon,    iconColor: '#7220CC', iconBg: '#E8DAFF', label: 'Assembly',  sub: '67 sub-categories' },
-  { type: 'avatar', src: S4, alt: 'Sam Smith' },
+  { type: 'avatar', src: S4, alt: 'Plumbing service' },
   { type: 'pill', icon: LeafIcon,        iconColor: '#A54AFF', iconBg: '#F0E8FF', label: 'Gardening', sub: '85 sub-categories' },
   { type: 'pill', icon: DropletsIcon,    iconColor: '#8C2EE8', iconBg: '#EDE0FF', label: 'Plumbing',  sub: '73 sub-categories' },
-  { type: 'avatar', src: S1, alt: 'John' },
+  { type: 'avatar', src: S3, alt: 'Gardening service' },
   { type: 'pill', icon: PaintbrushIcon,  iconColor: '#7220CC', iconBg: '#E8DAFF', label: 'Painting',  sub: '44 sub-categories' },
-  { type: 'avatar', src: S2, alt: 'Chris' },
+  { type: 'avatar', src: S1, alt: 'Cleaning service' },
   { type: 'pill', icon: PackageIcon,     iconColor: '#A54AFF', iconBg: '#F0E8FF', label: 'Moving',    sub: '39 sub-categories' },
 ];
 
