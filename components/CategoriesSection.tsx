@@ -6,7 +6,7 @@ import {
 } from './Icons';
 
 const S1 = 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=220&h=220&fit=crop&auto=format'; // cleaning
-const S2 = 'https://images.unsplash.com/photo-1621905251189-08b1489462be?w=220&h=220&fit=crop&auto=format'; // electrical
+const S2 = 'https://images.unsplash.com/photo-1509390144018-eefc5d47764f?w=220&h=220&fit=crop&auto=format'; // electrical
 const S3 = 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=220&h=220&fit=crop&auto=format'; // gardening
 const S4 = 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=220&h=220&fit=crop&auto=format'; // plumbing
 
@@ -87,16 +87,27 @@ export default function CategoriesSection() {
   const drag1   = useRef({ active: false, startX: 0, scrollLeft: 0 });
   const drag2   = useRef({ active: false, startX: 0, scrollLeft: 0 });
 
+  // Clear drag state on document mouseup so releasing outside the row doesn't freeze scroll
+  useEffect(() => {
+    const clear = () => {
+      drag1.current.active = false;
+      drag2.current.active = false;
+      if (row1Ref.current) row1Ref.current.style.cursor = 'grab';
+      if (row2Ref.current) row2Ref.current.style.cursor = 'grab';
+    };
+    document.addEventListener('mouseup', clear);
+    return () => document.removeEventListener('mouseup', clear);
+  }, []);
+
   // Row 1 — auto-scrolls left; speed matches original 30s CSS marquee
   useEffect(() => {
     const el = row1Ref.current;
     if (!el) return;
     let last = 0;
     const tick = (ts: number) => {
-      const dt = ts - last;
+      const dt = last === 0 ? 16 : Math.min(ts - last, 50); // cap to 50ms to survive busy frames
       last = ts;
-      if (!drag1.current.active && dt < 100 && el.scrollWidth > 0) {
-        // scrollWidth/2 in 30000ms — same pace as the original CSS animation
+      if (!drag1.current.active && el.scrollWidth > 0) {
         const speed = el.scrollWidth / 2 / 30000;
         el.scrollLeft += speed * dt;
         if (el.scrollLeft >= el.scrollWidth / 2) el.scrollLeft = 0;
@@ -114,13 +125,13 @@ export default function CategoriesSection() {
     let initialized = false;
     let last = 0;
     const tick = (ts: number) => {
-      const dt = ts - last;
+      const dt = last === 0 ? 16 : Math.min(ts - last, 50);
       last = ts;
       if (!initialized && el.scrollWidth > 0) {
         el.scrollLeft = el.scrollWidth / 2;
         initialized = true;
       }
-      if (!drag2.current.active && dt < 100 && initialized) {
+      if (!drag2.current.active && initialized) {
         const speed = el.scrollWidth / 2 / 30000;
         el.scrollLeft -= speed * dt;
         if (el.scrollLeft <= 0) el.scrollLeft = el.scrollWidth / 2;
