@@ -3,11 +3,7 @@
 import { SearchIcon, ShieldCheckIcon, SmartphoneIcon, CheckIcon, SparklesIcon } from './Icons';
 
 const PHONE_IMAGE =
-  'https://www.figma.com/api/mcp/asset/33f353d3-7fcf-4c02-8014-8b62646f8458';
-const APP_STORE_IMAGE =
-  'https://www.figma.com/api/mcp/asset/a662ab07-058c-47a8-80fb-ed02632c4871';
-const GOOGLE_PLAY_IMAGE =
-  'https://www.figma.com/api/mcp/asset/923b2b6a-6901-463c-a08d-f5e7e77956c4';
+  'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=340&h=560&fit=crop&auto=format&q=75';
 
 const FEATURES = [
   {
@@ -291,41 +287,29 @@ export default function AppDownloadSection() {
                 Get WhoCan on your phone now!
               </p>
               <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
-                <a
-                  href="#"
-                  style={{
-                    transition: 'transform 0.2s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.transform =
-                      'translateY(-2px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-                  }}
-                >
-                  <img
-                    src={APP_STORE_IMAGE}
-                    alt="Download on the App Store"
-                    style={{ height: '44px', width: 'auto' }}
-                  />
+                {/* App Store badge */}
+                <a href="#" style={{ textDecoration: 'none', transition: 'transform 0.2s ease', display: 'inline-flex' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}>
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#000', borderRadius: '10px', padding: '9px 16px', height: '44px', boxSizing: 'border-box' }}>
+                    <svg width="18" height="22" viewBox="0 0 814 1000" fill="#fff"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.4 8 719.2 8 653.2c0-114.1 75.8-174.4 151.4-174.4 79.4 0 129.2 52.7 173.4 52.7 42.8 0 98.7-54.9 182.1-54.9 26.4 0 108.7 2.3 166.6 90.8zm-89.2-305.3c34.8-41.3 60.1-98.8 60.1-155.5 0-8.7-.6-17.4-1.9-25.4C693.4 3.3 631.3 38 591 80.5c-36.1 39.6-71.3 99.8-71.3 159.3 0 9.6 1.3 19.2 2.6 22.2 3.9.6 10.3 1.3 16.6 1.3 52.3 0 109.7-33.8 149.9-67.2z"/></svg>
+                    <div>
+                      <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: '9px', color: 'rgba(255,255,255,0.8)', lineHeight: 1, marginBottom: '2px' }}>Download on the</div>
+                      <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: '15px', fontWeight: 700, color: '#fff', lineHeight: 1.1 }}>App Store</div>
+                    </div>
+                  </div>
                 </a>
-                <a
-                  href="#"
-                  style={{ transition: 'transform 0.2s ease' }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.transform =
-                      'translateY(-2px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-                  }}
-                >
-                  <img
-                    src={GOOGLE_PLAY_IMAGE}
-                    alt="Get it on Google Play"
-                    style={{ height: '44px', width: 'auto' }}
-                  />
+                {/* Google Play badge */}
+                <a href="#" style={{ textDecoration: 'none', transition: 'transform 0.2s ease', display: 'inline-flex' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}>
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#000', borderRadius: '10px', padding: '9px 16px', height: '44px', boxSizing: 'border-box' }}>
+                    <svg width="18" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 1.5L14.25 12 3 22.5" stroke="#34A853" strokeWidth="1.5" strokeLinecap="round" /><path d="M3 1.5l18 10.5L14.25 12" stroke="#FBBC04" strokeWidth="1.5" strokeLinecap="round" /><path d="M3 22.5l18-10.5L14.25 12" stroke="#EA4335" strokeWidth="1.5" strokeLinecap="round" /><path d="M3 1.5L14.25 12 3 22.5" stroke="#4285F4" strokeWidth="1.5" strokeLinecap="round" /></svg>
+                    <div>
+                      <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: '9px', color: 'rgba(255,255,255,0.8)', lineHeight: 1, marginBottom: '2px' }}>Get it on</div>
+                      <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: '15px', fontWeight: 700, color: '#fff', lineHeight: 1.1 }}>Google Play</div>
+                    </div>
+                  </div>
                 </a>
               </div>
             </div>

@@ -12,9 +12,7 @@ const CATEGORIES = [
 ];
 
 const HERO_IMAGE =
-  'https://www.figma.com/api/mcp/asset/9d4e1be0-7193-48cc-835b-97a7e39bae8a';
-const BLOB_IMAGE =
-  'https://www.figma.com/api/mcp/asset/713cfc70-9979-44e0-b80f-0344f67edc59';
+  'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=700&fit=crop&auto=format&q=75';
 
 export default function HeroSection() {
   const router = useRouter();
@@ -367,22 +365,6 @@ export default function HeroSection() {
                   'radial-gradient(circle, rgba(165, 74, 255, 0.3) 0%, transparent 70%)',
                 borderRadius: '50%',
                 filter: 'blur(40px)',
-              }}
-            />
-            {/* Large arc/blob from Figma */}
-            <img
-              src={BLOB_IMAGE}
-              alt=""
-              aria-hidden="true"
-              style={{
-                position: 'absolute',
-                top: '-5%',
-                left: '-5%',
-                width: '110%',
-                height: '110%',
-                objectFit: 'contain',
-                opacity: 0.4,
-                pointerEvents: 'none',
               }}
             />
             <img

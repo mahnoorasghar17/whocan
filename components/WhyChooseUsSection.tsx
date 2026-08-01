@@ -223,7 +223,7 @@ export default function WhyChooseUsSection() {
             >
               <div style={{ overflow: 'hidden', flexShrink: 0 }}>
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&w=400&q=80"
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&auto=format&q=75"
                   alt="Trusted Local Providers"
                   style={{ width: '100%', height: '130px', objectFit: 'cover', objectPosition: 'center top', display: 'block', transition: 'transform 0.4s ease' }}
                   onMouseEnter={(e) => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.04)'; }}

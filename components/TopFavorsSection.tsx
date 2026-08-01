@@ -4,45 +4,45 @@ import { StarIcon } from './Icons';
 
 const FAVORS = [
   {
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&auto=format&q=75',
     title: 'I will deep clean your home',
     price: '$253',
-    sellerAvatar: 'https://www.figma.com/api/mcp/asset/365e78fd-64a3-4ca4-8ff5-37881d84c909',
+    sellerAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=72&h=72&fit=crop&auto=format&q=80',
     seller: 'Alfonzo Schuessler', sellerBadge: 'Pro', rating: '4.8', reviews: '8,890',
   },
   {
-    image: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1509390144018-eefc5d47764f?w=600&h=400&fit=crop&auto=format&q=75',
     title: 'I will fix all your electrical issues',
     price: '$180',
-    sellerAvatar: 'https://www.figma.com/api/mcp/asset/5b492be2-d1f4-4f61-910d-997a1856c652',
+    sellerAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=72&h=72&fit=crop&auto=format&q=80',
     seller: 'James Thornton', sellerBadge: 'Team', rating: '4.9', reviews: '5,214',
   },
   {
-    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&h=400&fit=crop&auto=format&q=75',
     title: 'Professional furniture assembly service',
     price: '$95',
-    sellerAvatar: 'https://www.figma.com/api/mcp/asset/a3b4ae63-d5ed-4287-bcf6-0d976e78c83b',
+    sellerAvatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=72&h=72&fit=crop&auto=format&q=80',
     seller: 'Maria Santos', sellerBadge: 'Pro', rating: '4.7', reviews: '3,102',
   },
   {
-    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=400&fit=crop&auto=format&q=75',
     title: 'I will landscape your garden beautifully',
     price: '$120',
-    sellerAvatar: 'https://www.figma.com/api/mcp/asset/ef4c66ca-0d53-45b3-bcf3-249656d7bfbd',
+    sellerAvatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=72&h=72&fit=crop&auto=format&q=80',
     seller: 'Sam Smith', sellerBadge: 'Team', rating: '4.8', reviews: '2,341',
   },
   {
-    image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=400&fit=crop&auto=format&q=75',
     title: 'Interior painting & wall finishing',
     price: '$300',
-    sellerAvatar: 'https://www.figma.com/api/mcp/asset/5b492be2-d1f4-4f61-910d-997a1856c652',
+    sellerAvatar: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=72&h=72&fit=crop&auto=format&q=80',
     seller: 'Liam Jones', sellerBadge: 'Pro', rating: '4.9', reviews: '4,102',
   },
   {
-    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=400&fit=crop&auto=format&q=75',
     title: 'Professional plumbing repair service',
     price: '$150',
-    sellerAvatar: 'https://www.figma.com/api/mcp/asset/a3b4ae63-d5ed-4287-bcf6-0d976e78c83b',
+    sellerAvatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=72&h=72&fit=crop&auto=format&q=80',
     seller: 'Sophie Lee', sellerBadge: 'Team', rating: '4.6', reviews: '1,876',
   },
 ];
@@ -93,7 +93,7 @@ export default function TopFavorsSection() {
                       onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.04)'; }}
                       onMouseLeave={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'; }} />
                   </div>
-                  <div style={{ position: 'absolute', top: '20px', right: '20px', background: favor.sellerBadge === 'Pro' ? 'linear-gradient(135deg, #BF75FF 0%, #A54AFF 100%)' : 'linear-gradient(135deg, #34D399 0%, #079455 100%)', borderRadius: '8px', padding: '4px 10px', fontFamily: 'Poppins, sans-serif', fontSize: '11px', fontWeight: 700, color: '#ffffff', letterSpacing: '0.03em' }}>
+                  <div style={{ position: 'absolute', top: '20px', right: '20px', background: favor.sellerBadge === 'Pro' ? 'linear-gradient(135deg, #BF75FF 0%, #A54AFF 100%)' : 'linear-gradient(135deg, #34D399 0%, #079455 100%)', borderRadius: '9999px', padding: '4px 12px', fontFamily: 'Poppins, sans-serif', fontSize: '11px', fontWeight: 700, color: '#ffffff', letterSpacing: '0.03em' }}>
                     {favor.sellerBadge}
                   </div>
                 </div>

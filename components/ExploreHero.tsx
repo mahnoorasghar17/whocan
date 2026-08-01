@@ -1,23 +1,25 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import FiltersModal from './FiltersModal';
 
 const CATEGORIES = ['Cleaning', 'Electrical', 'Plumbing', 'Carpentry', 'Painting', 'Gardening', 'Assembly'];
 
 const FLOATING_FAVORS = [
-  { image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&w=300&q=80', title: 'Deep Home Cleaning', price: '$253', rating: '4.9' },
-  { image: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&w=300&q=80', title: 'Electrical Repairs', price: '$180', rating: '4.8' },
-  { image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&w=300&q=80', title: 'Garden Landscaping', price: '$120', rating: '4.7' },
+  { image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop&auto=format&q=75', title: 'Deep Home Cleaning',  price: '$253', rating: '4.9' },
+  { image: 'https://images.unsplash.com/photo-1509390144018-eefc5d47764f?w=300&h=200&fit=crop&auto=format&q=75', title: 'Electrical Repairs', price: '$180', rating: '4.8' },
+  { image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=300&h=200&fit=crop&auto=format&q=75', title: 'Garden Landscaping', price: '$120', rating: '4.7' },
 ];
 
 const FLOATING_SELLERS = [
-  { image: 'https://www.figma.com/api/mcp/asset/365e78fd-64a3-4ca4-8ff5-37881d84c909', name: 'John Doe', role: 'Cleaning Expert', rating: '4.9', jobs: 387 },
-  { image: 'https://www.figma.com/api/mcp/asset/5b492be2-d1f4-4f61-910d-997a1856c652', name: 'Chris Gale', role: 'Electrician', rating: '4.8', jobs: 259 },
-  { image: 'https://www.figma.com/api/mcp/asset/a3b4ae63-d5ed-4287-bcf6-0d976e78c83b', name: 'Olivia Rhye', role: 'Plumber', rating: '4.9', jobs: 198 },
+  { image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&auto=format&q=80', name: 'John Doe',    role: 'Cleaning Expert', rating: '4.9', jobs: 387 },
+  { image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&auto=format&q=80', name: 'Chris Gale',  role: 'Electrician',     rating: '4.8', jobs: 259 },
+  { image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&auto=format&q=80', name: 'Olivia Rhye', role: 'Plumber',          rating: '4.9', jobs: 198 },
 ];
 
 export default function ExploreHero() {
-  const [query, setQuery] = useState('');
+  const [query, setQuery]           = useState('');
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const router = useRouter();
 
   const handleSearch = () => {
@@ -32,6 +34,7 @@ export default function ExploreHero() {
 
   return (
     <section style={{ position: 'relative', minHeight: '620px', background: 'linear-gradient(160deg, #FAF5FF 0%, #F3E8FF 40%, #EDE9FE 100%)', overflow: 'hidden', paddingTop: '120px', paddingBottom: '80px', display: 'flex', alignItems: 'center' }}>
+      {filtersOpen && <FiltersModal onClose={() => setFiltersOpen(false)} />}
       {/* Dot grid */}
       <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(165,74,255,0.12) 1px, transparent 1px)', backgroundSize: '28px 28px', pointerEvents: 'none' }} />
 
@@ -100,6 +103,15 @@ export default function ExploreHero() {
             onMouseLeave={e => { (e.currentTarget as HTMLElement).style.opacity = '1'; }}
           >
             Search
+          </button>
+          <button
+            onClick={() => setFiltersOpen(true)}
+            style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '14px', color: '#344054', background: '#ffffff', border: '1.5px solid #D0D5DD', borderRadius: '9999px', padding: '12px 20px', cursor: 'pointer', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '6px', transition: 'all 0.15s ease' }}
+            onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = '#A54AFF'; el.style.color = '#A54AFF'; }}
+            onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = '#D0D5DD'; el.style.color = '#344054'; }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M8 12h8M12 18h0" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+            More filters
           </button>
         </div>
 

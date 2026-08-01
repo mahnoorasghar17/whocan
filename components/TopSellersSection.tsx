@@ -1,14 +1,14 @@
 'use client';
 
 const SELLERS = [
-  { image: 'https://www.figma.com/api/mcp/asset/365e78fd-64a3-4ca4-8ff5-37881d84c909', name: 'John Doe',     badge: 'Team', rating: '4.8', reviews: '8,890',  completedJobs: 387 },
-  { image: 'https://www.figma.com/api/mcp/asset/5b492be2-d1f4-4f61-910d-997a1856c652', name: 'Chris Gale',   badge: 'Pro',  rating: '4.9', reviews: '5,214',  completedJobs: 259 },
-  { image: 'https://www.figma.com/api/mcp/asset/a3b4ae63-d5ed-4287-bcf6-0d976e78c83b', name: 'Olivia Rhye',  badge: 'Team', rating: '4.9', reviews: '721',    completedJobs: 198 },
-  { image: 'https://www.figma.com/api/mcp/asset/ef4c66ca-0d53-45b3-bcf3-249656d7bfbd', name: 'Sam Smith',    badge: 'Pro',  rating: '4.7', reviews: '612',    completedJobs: 174 },
-  { image: 'https://www.figma.com/api/mcp/asset/365e78fd-64a3-4ca4-8ff5-37881d84c909', name: 'Emma Brown',   badge: 'Pro',  rating: '4.8', reviews: '1,043',  completedJobs: 312 },
-  { image: 'https://www.figma.com/api/mcp/asset/5b492be2-d1f4-4f61-910d-997a1856c652', name: 'Liam Jones',   badge: 'Team', rating: '4.6', reviews: '893',    completedJobs: 247 },
-  { image: 'https://www.figma.com/api/mcp/asset/a3b4ae63-d5ed-4287-bcf6-0d976e78c83b', name: 'Sophie Lee',   badge: 'Pro',  rating: '4.9', reviews: '2,107',  completedJobs: 431 },
-  { image: 'https://www.figma.com/api/mcp/asset/ef4c66ca-0d53-45b3-bcf3-249656d7bfbd', name: 'Ava Davis',    badge: 'Team', rating: '4.7', reviews: '754',    completedJobs: 189 },
+  { image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&auto=format&q=75', name: 'John Doe',    badge: 'Team', rating: '4.8', reviews: '8,890', completedJobs: 387 },
+  { image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=500&fit=crop&auto=format&q=75', name: 'Chris Gale',  badge: 'Pro',  rating: '4.9', reviews: '5,214', completedJobs: 259 },
+  { image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=500&fit=crop&auto=format&q=75', name: 'Olivia Rhye', badge: 'Team', rating: '4.9', reviews: '721',   completedJobs: 198 },
+  { image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop&auto=format&q=75', name: 'Sam Smith',   badge: 'Pro',  rating: '4.7', reviews: '612',   completedJobs: 174 },
+  { image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=500&fit=crop&auto=format&q=75', name: 'Emma Brown',  badge: 'Pro',  rating: '4.8', reviews: '1,043', completedJobs: 312 },
+  { image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=400&h=500&fit=crop&auto=format&q=75', name: 'Liam Jones',  badge: 'Team', rating: '4.6', reviews: '893',   completedJobs: 247 },
+  { image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=500&fit=crop&auto=format&q=75', name: 'Sophie Lee',  badge: 'Pro',  rating: '4.9', reviews: '2,107', completedJobs: 431 },
+  { image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=500&fit=crop&auto=format&q=75',   name: 'Ava Davis',   badge: 'Team', rating: '4.7', reviews: '754',   completedJobs: 189 },
 ];
 
 export default function TopSellersSection() {
@@ -45,7 +45,7 @@ export default function TopSellersSection() {
                 <div style={{ height: '220px', borderRadius: '14px', overflow: 'hidden', background: '#F8F0FF' }}>
                   <img src={seller.image} alt={seller.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
                 </div>
-                <div style={{ position: 'absolute', top: '20px', right: '20px', background: seller.badge === 'Pro' ? 'linear-gradient(135deg, #BF75FF 0%, #A54AFF 100%)' : 'linear-gradient(135deg, #34D399 0%, #079455 100%)', borderRadius: '8px', padding: '4px 10px', fontFamily: 'Poppins, sans-serif', fontSize: '11px', fontWeight: 700, color: '#ffffff', letterSpacing: '0.03em' }}>
+                <div style={{ position: 'absolute', top: '20px', right: '20px', background: seller.badge === 'Pro' ? 'linear-gradient(135deg, #BF75FF 0%, #A54AFF 100%)' : 'linear-gradient(135deg, #34D399 0%, #079455 100%)', borderRadius: '9999px', padding: '4px 12px', fontFamily: 'Poppins, sans-serif', fontSize: '11px', fontWeight: 700, color: '#ffffff', letterSpacing: '0.03em' }}>
                   {seller.badge}
                 </div>
               </div>
