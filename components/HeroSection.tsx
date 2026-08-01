@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { SparklesIcon, WrenchIcon, SettingsIcon, ZapIcon, LeafIcon, DropletsIcon, PaintbrushIcon } from './Icons';
 
 const CATEGORIES = [
@@ -15,6 +17,25 @@ const BLOB_IMAGE =
   'https://www.figma.com/api/mcp/asset/713cfc70-9979-44e0-b80f-0344f67edc59';
 
 export default function HeroSection() {
+  const router = useRouter();
+  const [query, setQuery] = useState('');
+  const [selectedCat, setSelectedCat] = useState<string | null>(null);
+
+  const placeholder = selectedCat
+    ? `Search ${selectedCat.toLowerCase()} services...`
+    : 'Try cleaning, gardening, or plumbing...';
+
+  const handleSearch = () => {
+    const params = new URLSearchParams({ type: 'favors' });
+    if (query.trim()) params.set('q', query.trim());
+    if (selectedCat) params.set('category', selectedCat);
+    if (!query.trim() && selectedCat) params.set('q', selectedCat);
+    router.push(`/explore/search?${params.toString()}`);
+  };
+
+  const toggleCat = (label: string) =>
+    setSelectedCat(prev => (prev === label ? null : label));
+
   return (
     <section
       style={{
@@ -208,35 +229,29 @@ export default function HeroSection() {
                 fill="none"
                 style={{ flexShrink: 0, opacity: 0.5 }}
               >
-                <circle
-                  cx="8"
-                  cy="8"
-                  r="5.5"
-                  stroke="white"
-                  strokeWidth="1.5"
-                />
-                <path
-                  d="M12.5 12.5L16 16"
-                  stroke="white"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
+                <circle cx="8" cy="8" r="5.5" stroke="white" strokeWidth="1.5" />
+                <path d="M12.5 12.5L16 16" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
               </svg>
-              <span
+              <input
+                type="text"
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+                onKeyDown={e => { if (e.key === 'Enter') handleSearch(); }}
+                placeholder={placeholder}
                 style={{
                   flex: 1,
+                  border: 'none',
+                  outline: 'none',
+                  background: 'transparent',
                   fontSize: '14px',
-                  color: 'rgba(255,255,255,0.4)',
+                  color: '#ffffff',
                   fontFamily: 'Poppins, sans-serif',
-                  userSelect: 'none',
                 }}
-              >
-                Try cleaning, gardening, or plumbing...
-              </span>
+              />
               <button
+                onClick={handleSearch}
                 style={{
-                  background:
-                    'linear-gradient(135deg, #BF75FF 0%, #A54AFF 50%, #8430E0 100%)',
+                  background: 'linear-gradient(135deg, #BF75FF 0%, #A54AFF 50%, #8430E0 100%)',
                   color: '#ffffff',
                   fontFamily: 'Poppins, sans-serif',
                   fontWeight: 600,
@@ -249,59 +264,47 @@ export default function HeroSection() {
                   transition: 'all 0.2s ease',
                   boxShadow: '0 2px 12px rgba(165, 74, 255, 0.4)',
                 }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.transform =
-                    'scale(1.03)';
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
-                }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = 'scale(1.03)'; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = 'scale(1)'; }}
               >
                 Search
               </button>
             </div>
 
-            {/* Quick category filters */}
+            {/* Quick category filters — selectable */}
             <div
               className="hero-text-4"
               style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}
             >
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat.label}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    background: 'rgba(255,255,255,0.06)',
-                    border: '1px solid rgba(255,255,255,0.12)',
-                    borderRadius: '9999px',
-                    padding: '7px 14px',
-                    fontSize: '13px',
-                    fontWeight: 500,
-                    color: 'rgba(255,255,255,0.8)',
-                    fontFamily: 'Poppins, sans-serif',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    backdropFilter: 'blur(8px)',
-                  }}
-                  onMouseEnter={(e) => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.background = 'rgba(165, 74, 255, 0.2)';
-                    el.style.borderColor = 'rgba(165, 74, 255, 0.5)';
-                    el.style.color = '#ffffff';
-                  }}
-                  onMouseLeave={(e) => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.background = 'rgba(255,255,255,0.06)';
-                    el.style.borderColor = 'rgba(255,255,255,0.12)';
-                    el.style.color = 'rgba(255,255,255,0.8)';
-                  }}
-                >
-                  <cat.icon size={15} color="rgba(255,255,255,0.85)" />
-                  {cat.label}
-                </button>
-              ))}
+              {CATEGORIES.map((cat) => {
+                const active = selectedCat === cat.label;
+                return (
+                  <button
+                    key={cat.label}
+                    onClick={() => toggleCat(cat.label)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      background: active ? 'rgba(165,74,255,0.3)' : 'rgba(255,255,255,0.06)',
+                      border: `1px solid ${active ? 'rgba(165,74,255,0.7)' : 'rgba(255,255,255,0.12)'}`,
+                      borderRadius: '9999px',
+                      padding: '7px 14px',
+                      fontSize: '13px',
+                      fontWeight: active ? 600 : 500,
+                      color: active ? '#ffffff' : 'rgba(255,255,255,0.8)',
+                      fontFamily: 'Poppins, sans-serif',
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease',
+                      backdropFilter: 'blur(8px)',
+                      boxShadow: active ? '0 0 0 1px rgba(165,74,255,0.5)' : 'none',
+                    }}
+                  >
+                    <cat.icon size={15} color={active ? '#ffffff' : 'rgba(255,255,255,0.85)'} />
+                    {cat.label}
+                  </button>
+                );
+              })}
             </div>
 
             {/* Stats strip */}

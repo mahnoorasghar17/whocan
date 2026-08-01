@@ -172,6 +172,7 @@ export default function CategoriesSection() {
         el.style.cursor = 'grabbing';
       },
       onMouseMove: (e: React.MouseEvent<HTMLDivElement>) => {
+        if (e.buttons !== 1) return; // ignore hover-only moves — no button held
         const el = elRef.current;
         if (!el) return;
         const x = e.pageX - el.offsetLeft;

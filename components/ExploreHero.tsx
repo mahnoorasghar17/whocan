@@ -80,8 +80,8 @@ export default function ExploreHero() {
         </p>
 
         {/* Search bar */}
-        <div style={{ display: 'flex', alignItems: 'center', background: '#ffffff', borderRadius: '16px', boxShadow: '0 4px 32px rgba(165,74,255,0.15)', border: '1.5px solid #EAECF0', padding: '8px 8px 8px 20px', gap: '8px', maxWidth: '700px', margin: '0 auto 28px' }}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, color: '#A54AFF' }}>
+        <div style={{ display: 'flex', alignItems: 'center', background: '#ffffff', borderRadius: '9999px', boxShadow: '0 4px 32px rgba(165,74,255,0.15)', border: '1.5px solid #EAECF0', padding: '8px 8px 8px 20px', gap: '8px', maxWidth: '700px', margin: '0 auto 28px' }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
             <circle cx="11" cy="11" r="8" stroke="#A54AFF" strokeWidth="2" />
             <path d="M21 21l-4.35-4.35" stroke="#A54AFF" strokeWidth="2" strokeLinecap="round" />
           </svg>
@@ -95,7 +95,7 @@ export default function ExploreHero() {
           />
           <button
             onClick={handleSearch}
-            style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: '14px', color: '#ffffff', background: 'linear-gradient(135deg, #BF75FF 0%, #A54AFF 50%, #8430E0 100%)', border: 'none', borderRadius: '10px', padding: '12px 28px', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'opacity 0.2s ease' }}
+            style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: '14px', color: '#ffffff', background: 'linear-gradient(135deg, #BF75FF 0%, #A54AFF 50%, #8430E0 100%)', border: 'none', borderRadius: '9999px', padding: '12px 28px', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'opacity 0.2s ease' }}
             onMouseEnter={e => { (e.currentTarget as HTMLElement).style.opacity = '0.9'; }}
             onMouseLeave={e => { (e.currentTarget as HTMLElement).style.opacity = '1'; }}
           >
