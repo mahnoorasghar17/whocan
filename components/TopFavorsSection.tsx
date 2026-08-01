@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { StarIcon } from './Icons';
 
 const FAVORS = [
@@ -48,6 +49,7 @@ const FAVORS = [
 ];
 
 export default function TopFavorsSection() {
+  const router = useRouter();
   const [likedFavors, setLikedFavors] = useState<Set<string>>(new Set());
 
   const toggleLike = (title: string) => {
@@ -82,7 +84,7 @@ export default function TopFavorsSection() {
           {FAVORS.map((favor, i) => {
             const liked = likedFavors.has(favor.title);
             return (
-              <div key={favor.title} data-animate data-delay={String((i % 3) + 1)} style={{ background: '#ffffff', borderRadius: '20px', border: '1.5px solid #EAECF0', cursor: 'pointer', transition: 'border-color 0.2s ease, box-shadow 0.2s ease', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
+              <div key={favor.title} data-animate data-delay={String((i % 3) + 1)} onClick={() => router.push(`/favor/${i + 1}`)} style={{ background: '#ffffff', borderRadius: '20px', border: '1.5px solid #EAECF0', cursor: 'pointer', transition: 'border-color 0.2s ease, box-shadow 0.2s ease', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(165,74,255,0.3)'; el.style.boxShadow = '0 8px 24px rgba(165,74,255,0.1)'; }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = '#EAECF0'; el.style.boxShadow = 'none'; }}>
 
@@ -102,7 +104,7 @@ export default function TopFavorsSection() {
                 <div style={{ padding: '16px 16px 18px', display: 'flex', flexDirection: 'column', flex: 1 }}>
                   {/* Seller row */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                    <img src={favor.sellerAvatar} alt={favor.seller} style={{ width: '36px', height: '36px', borderRadius: '9999px', objectFit: 'cover', objectPosition: 'top', flexShrink: 0, border: '2px solid #DFBAFF' }} />
+                    <img src={favor.sellerAvatar} alt={favor.seller} onClick={e => { e.stopPropagation(); router.push('/seller/1'); }} style={{ width: '36px', height: '36px', borderRadius: '9999px', objectFit: 'cover', objectPosition: 'top', flexShrink: 0, border: '2px solid #DFBAFF' }} />
                     <div>
                       <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 600, fontSize: '13px', color: '#101828', lineHeight: '1.2' }}>{favor.seller}</p>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}>

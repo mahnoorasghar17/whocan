@@ -1,4 +1,5 @@
 'use client';
+import { useRouter } from 'next/navigation';
 
 const SELLERS = [
   { image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&auto=format&q=75', name: 'John Doe',    badge: 'Team', rating: '4.8', reviews: '8,890', completedJobs: 387 },
@@ -12,6 +13,7 @@ const SELLERS = [
 ];
 
 export default function TopSellersSection() {
+  const router = useRouter();
   return (
     <section style={{ padding: '96px 0', background: '#F8F0FF', position: 'relative', overflow: 'hidden', borderRadius: '50px' }}>
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundImage: 'radial-gradient(rgba(165,74,255,0.08) 1px,transparent 1px)', backgroundSize: '28px 28px', pointerEvents: 'none' }} />
@@ -36,7 +38,7 @@ export default function TopSellersSection() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '20px' }}>
           {SELLERS.map((seller, i) => (
-            <div key={`${seller.name}-${i}`} data-animate data-delay={String((i % 4) + 1)} style={{ background: '#ffffff', borderRadius: '20px', border: '1.5px solid #EAECF0', cursor: 'pointer', transition: 'border-color 0.2s ease, box-shadow 0.2s ease', overflow: 'hidden' }}
+            <div key={`${seller.name}-${i}`} data-animate data-delay={String((i % 4) + 1)} onClick={() => router.push(`/seller/${i + 1}`)} style={{ background: '#ffffff', borderRadius: '20px', border: '1.5px solid #EAECF0', cursor: 'pointer', transition: 'border-color 0.2s ease, box-shadow 0.2s ease', overflow: 'hidden' }}
               onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(165,74,255,0.3)'; el.style.boxShadow = '0 8px 24px rgba(165,74,255,0.1)'; }}
               onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = '#EAECF0'; el.style.boxShadow = 'none'; }}>
 
