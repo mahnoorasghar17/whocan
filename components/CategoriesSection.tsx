@@ -86,8 +86,10 @@ export default function CategoriesSection() {
   const raf2    = useRef(0);
   const drag1   = useRef({ active: false, startX: 0, scrollLeft: 0 });
   const drag2   = useRef({ active: false, startX: 0, scrollLeft: 0 });
+  const hover1  = useRef(false);
+  const hover2  = useRef(false);
 
-  // Clear drag state on document mouseup so releasing outside the row doesn't freeze scroll
+  // Clear drag state if mouse released outside the row
   useEffect(() => {
     const clear = () => {
       drag1.current.active = false;
@@ -99,15 +101,20 @@ export default function CategoriesSection() {
     return () => document.removeEventListener('mouseup', clear);
   }, []);
 
-  // Row 1 — auto-scrolls left; speed matches original 30s CSS marquee
+  // Row 1 — auto-scrolls left; freezes instantly on hover
   useEffect(() => {
     const el = row1Ref.current;
     if (!el) return;
     let last = 0;
     const tick = (ts: number) => {
-      const dt = last === 0 ? 16 : Math.min(ts - last, 50); // cap to 50ms to survive busy frames
+      if (hover1.current) {
+        last = 0; // reset so resume starts with a normal 16ms step, no jump
+        raf1.current = requestAnimationFrame(tick);
+        return;
+      }
+      const dt = last === 0 ? 16 : Math.min(ts - last, 50);
       last = ts;
-      if (!drag1.current.active && el.scrollWidth > 0) {
+      if (el.scrollWidth > 0) {
         const speed = el.scrollWidth / 2 / 30000;
         el.scrollLeft += speed * dt;
         if (el.scrollLeft >= el.scrollWidth / 2) el.scrollLeft = 0;
@@ -118,20 +125,25 @@ export default function CategoriesSection() {
     return () => cancelAnimationFrame(raf1.current);
   }, []);
 
-  // Row 2 — auto-scrolls right (reverse); same pace
+  // Row 2 — auto-scrolls right (reverse); freezes instantly on hover
   useEffect(() => {
     const el = row2Ref.current;
     if (!el) return;
     let initialized = false;
     let last = 0;
     const tick = (ts: number) => {
+      if (hover2.current) {
+        last = 0;
+        raf2.current = requestAnimationFrame(tick);
+        return;
+      }
       const dt = last === 0 ? 16 : Math.min(ts - last, 50);
       last = ts;
       if (!initialized && el.scrollWidth > 0) {
         el.scrollLeft = el.scrollWidth / 2;
         initialized = true;
       }
-      if (!drag2.current.active && initialized) {
+      if (initialized) {
         const speed = el.scrollWidth / 2 / 30000;
         el.scrollLeft -= speed * dt;
         if (el.scrollLeft <= 0) el.scrollLeft = el.scrollWidth / 2;
@@ -142,15 +154,20 @@ export default function CategoriesSection() {
     return () => cancelAnimationFrame(raf2.current);
   }, []);
 
-  // Drag handlers factory
+  // Drag + hover handlers factory
   function makeDrag(
     elRef: React.RefObject<HTMLDivElement>,
     state: React.MutableRefObject<{ active: boolean; startX: number; scrollLeft: number }>,
+    hoverRef: React.MutableRefObject<boolean>,
   ) {
     return {
+      onMouseEnter: () => {
+        hoverRef.current = true; // freeze scroll instantly
+      },
       onMouseDown: (e: React.MouseEvent<HTMLDivElement>) => {
         const el = elRef.current;
         if (!el) return;
+        // RAF is already frozen (hovered), so scrollLeft is stable here
         state.current = { active: false, startX: e.pageX - el.offsetLeft, scrollLeft: el.scrollLeft };
         el.style.cursor = 'grabbing';
       },
@@ -165,11 +182,12 @@ export default function CategoriesSection() {
         el.scrollLeft = state.current.scrollLeft - walk;
       },
       onMouseUp: () => {
-        setTimeout(() => { state.current.active = false; }, 50);
+        state.current.active = false;
         if (elRef.current) elRef.current.style.cursor = 'grab';
       },
       onMouseLeave: () => {
-        setTimeout(() => { state.current.active = false; }, 50);
+        state.current.active = false;
+        hoverRef.current = false; // resume scroll instantly
         if (elRef.current) elRef.current.style.cursor = 'grab';
       },
     };
@@ -188,7 +206,7 @@ export default function CategoriesSection() {
           ref={row1Ref}
           className="hide-scrollbar"
           style={{ overflowX: 'auto', cursor: 'grab', paddingTop: '2px', paddingBottom: '2px' }}
-          {...makeDrag(row1Ref, drag1)}
+          {...makeDrag(row1Ref, drag1, hover1)}
         >
           <div style={{ display: 'flex', gap: GAP, width: 'max-content', paddingLeft: '24px', paddingRight: '24px' }}>
             {doubled1.map((item, i) => renderItem(item, i))}
@@ -202,7 +220,7 @@ export default function CategoriesSection() {
           ref={row2Ref}
           className="hide-scrollbar"
           style={{ overflowX: 'auto', cursor: 'grab', paddingTop: '2px', paddingBottom: '2px' }}
-          {...makeDrag(row2Ref, drag2)}
+          {...makeDrag(row2Ref, drag2, hover2)}
         >
           <div style={{ display: 'flex', gap: GAP, width: 'max-content', paddingLeft: '24px', paddingRight: '24px' }}>
             {doubled2.map((item, i) => renderItem(item, i + 1000))}
