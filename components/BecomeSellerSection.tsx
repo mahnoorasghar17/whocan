@@ -3,7 +3,7 @@
 import { DollarSignIcon, CalendarIcon, ZapIcon, GlobeIcon } from './Icons';
 
 const BENEFITS = [
-  { icon: DollarSignIcon, label: 'No commission fees' },
+  { icon: DollarSignIcon, label: 'Minimal commission fees' },
   { icon: CalendarIcon,   label: 'Flexible schedule' },
   { icon: ZapIcon,        label: 'Instant payouts' },
   { icon: GlobeIcon,      label: '750+ active buyers' },
@@ -176,10 +176,12 @@ export default function BecomeSellerSection() {
                   el.style.boxShadow = '0 4px 20px rgba(165, 74, 255, 0.4)';
                 }}
               >
-                Start Earning Today
+                Register as a Seller
               </a>
               <a
-                href="#"
+                href="/sellers"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   fontFamily: 'Poppins, sans-serif',
                   fontWeight: 600,

@@ -1,12 +1,12 @@
 'use client';
-import { useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   SparklesIcon, WrenchIcon, ZapIcon, LeafIcon,
   DropletsIcon, PaintbrushIcon, PackageIcon, SettingsIcon, ArrowRightIcon,
 } from './Icons';
 
 const S1 = 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=220&h=220&fit=crop&auto=format'; // cleaning
-const S2 = 'https://images.unsplash.com/photo-1509390144018-eefc5d47764f?w=220&h=220&fit=crop&auto=format'; // electrical
+const S2 = 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=220&h=220&fit=crop&auto=format'; // electrical
 const S3 = 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=220&h=220&fit=crop&auto=format'; // gardening
 const S4 = 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=220&h=220&fit=crop&auto=format'; // plumbing
 
@@ -53,9 +53,10 @@ function AvatarEl({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-function PillEl({ icon: Icon, iconColor, iconBg, label, sub }: Omit<PillItem, 'type'>) {
+function PillEl({ icon: Icon, iconColor, iconBg, label, sub, onClick }: Omit<PillItem, 'type'> & { onClick?: () => void }) {
   return (
     <div
+      onClick={onClick}
       style={{ height: SIZE, minWidth: 240, borderRadius: 9999, background: '#ffffff', border: '2px solid rgba(165,74,255,0.2)', display: 'flex', alignItems: 'center', gap: 14, padding: '0 24px 0 18px', flexShrink: 0, cursor: 'pointer', boxShadow: '0 4px 16px rgba(165,74,255,0.08)', transition: 'border-color 0.2s, box-shadow 0.2s, transform 0.2s' }}
       onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(165,74,255,0.5)'; el.style.boxShadow = '0 8px 24px rgba(165,74,255,0.18)'; el.style.transform = 'scale(1.03)'; }}
       onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(165,74,255,0.2)'; el.style.boxShadow = '0 4px 16px rgba(165,74,255,0.08)'; el.style.transform = 'scale(1)'; }}
@@ -74,158 +75,54 @@ function PillEl({ icon: Icon, iconColor, iconBg, label, sub }: Omit<PillItem, 't
   );
 }
 
-function renderItem(item: RowItem, key: number) {
+function renderItem(item: RowItem, key: number, onPillClick?: (label: string) => void) {
   if (item.type === 'avatar') return <AvatarEl key={key} src={item.src} alt={item.alt} />;
-  return <PillEl key={key} icon={item.icon} iconColor={item.iconColor} iconBg={item.iconBg} label={item.label} sub={item.sub} />;
+  return <PillEl key={key} icon={item.icon} iconColor={item.iconColor} iconBg={item.iconBg} label={item.label} sub={item.sub} onClick={() => onPillClick?.(item.label)} />;
 }
 
 export default function CategoriesSection() {
-  const row1Ref = useRef<HTMLDivElement>(null);
-  const row2Ref = useRef<HTMLDivElement>(null);
-  const raf1    = useRef(0);
-  const raf2    = useRef(0);
-  const drag1   = useRef({ active: false, startX: 0, scrollLeft: 0 });
-  const drag2   = useRef({ active: false, startX: 0, scrollLeft: 0 });
-  const hover1  = useRef(false);
-  const hover2  = useRef(false);
-
-  // Clear drag state if mouse released outside the row
-  useEffect(() => {
-    const clear = () => {
-      drag1.current.active = false;
-      drag2.current.active = false;
-      if (row1Ref.current) row1Ref.current.style.cursor = 'grab';
-      if (row2Ref.current) row2Ref.current.style.cursor = 'grab';
-    };
-    document.addEventListener('mouseup', clear);
-    return () => document.removeEventListener('mouseup', clear);
-  }, []);
-
-  // Row 1 — auto-scrolls left; freezes instantly on hover
-  useEffect(() => {
-    const el = row1Ref.current;
-    if (!el) return;
-    let last = 0;
-    const tick = (ts: number) => {
-      if (hover1.current) {
-        last = 0; // reset so resume starts with a normal 16ms step, no jump
-        raf1.current = requestAnimationFrame(tick);
-        return;
-      }
-      const dt = last === 0 ? 16 : Math.min(ts - last, 50);
-      last = ts;
-      if (el.scrollWidth > 0) {
-        const speed = el.scrollWidth / 2 / 30000;
-        el.scrollLeft += speed * dt;
-        if (el.scrollLeft >= el.scrollWidth / 2) el.scrollLeft = 0;
-      }
-      raf1.current = requestAnimationFrame(tick);
-    };
-    raf1.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf1.current);
-  }, []);
-
-  // Row 2 — auto-scrolls right (reverse); freezes instantly on hover
-  useEffect(() => {
-    const el = row2Ref.current;
-    if (!el) return;
-    let initialized = false;
-    let last = 0;
-    const tick = (ts: number) => {
-      if (hover2.current) {
-        last = 0;
-        raf2.current = requestAnimationFrame(tick);
-        return;
-      }
-      const dt = last === 0 ? 16 : Math.min(ts - last, 50);
-      last = ts;
-      if (!initialized && el.scrollWidth > 0) {
-        el.scrollLeft = el.scrollWidth / 2;
-        initialized = true;
-      }
-      if (initialized) {
-        const speed = el.scrollWidth / 2 / 30000;
-        el.scrollLeft -= speed * dt;
-        if (el.scrollLeft <= 0) el.scrollLeft = el.scrollWidth / 2;
-      }
-      raf2.current = requestAnimationFrame(tick);
-    };
-    raf2.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf2.current);
-  }, []);
-
-  // Drag + hover handlers factory
-  function makeDrag(
-    elRef: React.RefObject<HTMLDivElement>,
-    state: React.MutableRefObject<{ active: boolean; startX: number; scrollLeft: number }>,
-    hoverRef: React.MutableRefObject<boolean>,
-  ) {
-    return {
-      onMouseEnter: () => {
-        hoverRef.current = true; // freeze scroll instantly
-      },
-      onMouseDown: (e: React.MouseEvent<HTMLDivElement>) => {
-        const el = elRef.current;
-        if (!el) return;
-        // RAF is already frozen (hovered), so scrollLeft is stable here
-        state.current = { active: false, startX: e.pageX - el.offsetLeft, scrollLeft: el.scrollLeft };
-        el.style.cursor = 'grabbing';
-      },
-      onMouseMove: (e: React.MouseEvent<HTMLDivElement>) => {
-        if (e.buttons !== 1) return; // ignore hover-only moves — no button held
-        const el = elRef.current;
-        if (!el) return;
-        const x = e.pageX - el.offsetLeft;
-        const walk = x - state.current.startX;
-        if (Math.abs(walk) > 4) state.current.active = true;
-        if (!state.current.active) return;
-        e.preventDefault();
-        el.scrollLeft = state.current.scrollLeft - walk;
-      },
-      onMouseUp: () => {
-        state.current.active = false;
-        if (elRef.current) elRef.current.style.cursor = 'grab';
-      },
-      onMouseLeave: () => {
-        state.current.active = false;
-        hoverRef.current = false; // resume scroll instantly
-        if (elRef.current) elRef.current.style.cursor = 'grab';
-      },
-    };
-  }
+  const router = useRouter();
+  const goTo = (label: string) => router.push(`/explore/search?category=${encodeURIComponent(label)}`);
 
   const doubled1 = [...ROW1, ...ROW1];
   const doubled2 = [...ROW2, ...ROW2];
 
+  const pause  = (e: React.MouseEvent<HTMLDivElement>) => (e.currentTarget.style.animationPlayState = 'paused');
+  const resume = (e: React.MouseEvent<HTMLDivElement>) => (e.currentTarget.style.animationPlayState = 'running');
+
   return (
     <section style={{ background: '#F8F0FF', padding: '56px 0', position: 'relative', borderRadius: '50px' }}>
+      <style>{`
+        @keyframes marqueeL {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        @keyframes marqueeR {
+          0%   { transform: translateX(-50%); }
+          100% { transform: translateX(0); }
+        }
+      `}</style>
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(165,74,255,0.25), transparent)' }} />
 
-      {/* Row 1 — overflowX:clip clips horizontally without killing y-axis shadow */}
-      <div style={{ overflowX: 'clip', paddingTop: '10px', paddingBottom: '10px', marginTop: '-10px', marginBottom: `${GAP - 10}px` }}>
+      {/* Row 1 — scrolls left */}
+      <div style={{ overflow: 'hidden', paddingTop: '10px', paddingBottom: '10px', marginBottom: `${GAP}px` }}>
         <div
-          ref={row1Ref}
-          className="hide-scrollbar"
-          style={{ overflowX: 'auto', cursor: 'grab', paddingTop: '2px', paddingBottom: '2px' }}
-          {...makeDrag(row1Ref, drag1, hover1)}
+          style={{ display: 'flex', gap: GAP, width: 'max-content', paddingLeft: '24px', animation: 'marqueeL 28s linear infinite', willChange: 'transform' }}
+          onMouseEnter={pause}
+          onMouseLeave={resume}
         >
-          <div style={{ display: 'flex', gap: GAP, width: 'max-content', paddingLeft: '24px', paddingRight: '24px' }}>
-            {doubled1.map((item, i) => renderItem(item, i))}
-          </div>
+          {doubled1.map((item, i) => renderItem(item, i, goTo))}
         </div>
       </div>
 
-      {/* Row 2 */}
-      <div style={{ overflowX: 'clip', paddingTop: '10px', paddingBottom: '10px', marginBottom: '-10px' }}>
+      {/* Row 2 — scrolls right */}
+      <div style={{ overflow: 'hidden', paddingTop: '10px', paddingBottom: '10px' }}>
         <div
-          ref={row2Ref}
-          className="hide-scrollbar"
-          style={{ overflowX: 'auto', cursor: 'grab', paddingTop: '2px', paddingBottom: '2px' }}
-          {...makeDrag(row2Ref, drag2, hover2)}
+          style={{ display: 'flex', gap: GAP, width: 'max-content', paddingLeft: '24px', animation: 'marqueeR 34s linear infinite', willChange: 'transform' }}
+          onMouseEnter={pause}
+          onMouseLeave={resume}
         >
-          <div style={{ display: 'flex', gap: GAP, width: 'max-content', paddingLeft: '24px', paddingRight: '24px' }}>
-            {doubled2.map((item, i) => renderItem(item, i + 1000))}
-          </div>
+          {doubled2.map((item, i) => renderItem(item, i + 1000, goTo))}
         </div>
       </div>
 

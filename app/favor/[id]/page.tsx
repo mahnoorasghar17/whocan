@@ -7,12 +7,13 @@ import Footer from '@/components/Footer';
 /* ─── mock data ─────────────────────────────────────── */
 const FAVOR = {
   id: '1',
+  mainCategory: 'Cleaning',
   title: 'I will deep clean your home',
   categories: ['Home cleaning', 'Gardening', 'Dusting'],
   images: [
     'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&h=560&fit=crop&auto=format&q=75',
-    'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=440&h=270&fit=crop&auto=format&q=75',
-    'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=440&h=270&fit=crop&auto=format&q=75',
+    'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=440&h=560&fit=crop&auto=format&q=75',
+    'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=440&h=560&fit=crop&auto=format&q=75',
   ],
   seller: {
     id: '1',
@@ -64,9 +65,9 @@ const FAVOR = {
 };
 
 const MORE_FROM_PRO = [
-  { id: '2', image: 'https://images.unsplash.com/photo-1509390144018-eefc5d47764f?w=300&h=200&fit=crop&auto=format&q=75', title: 'I will fix your electric supply issue', rating: 4.8, reviews: 5593, price: 135 },
-  { id: '3', image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=300&h=200&fit=crop&auto=format&q=75', title: 'I will landscape your garden beautifully', rating: 4.9, reviews: 1140, price: 120 },
-  { id: '4', image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=300&h=200&fit=crop&auto=format&q=75', title: 'I will fix all your plumbing issues', rating: 4.7, reviews: 892,  price: 150 },
+  { id: '2', image: 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=600&h=400&fit=crop&auto=format&q=75', title: 'I will fix your electric supply issue', rating: 4.8, reviews: 5593, price: 135 },
+  { id: '3', image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=400&fit=crop&auto=format&q=75', title: 'I will landscape your garden beautifully', rating: 4.9, reviews: 1140, price: 120 },
+  { id: '4', image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=400&fit=crop&auto=format&q=75', title: 'I will fix all your plumbing issues', rating: 4.7, reviews: 892,  price: 150 },
 ];
 
 const SIMILAR = [
@@ -148,32 +149,23 @@ export default function FavorDetailPage() {
                 style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s' }}
                 onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.02)'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'; }} />
-              {/* Like + Share */}
-              <div style={{ position: 'absolute', top: '16px', right: '16px', display: 'flex', gap: '8px' }}>
-                <button onClick={() => setLiked(l => !l)}
-                  style={{ width: '40px', height: '40px', borderRadius: '9999px', background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(8px)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 12px rgba(0,0,0,0.12)' }}>
-                  <svg viewBox="0 0 24 24" width="20" height="20">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-                      stroke={liked ? '#F43F5E' : '#667085'} strokeWidth="2" fill={liked ? '#F43F5E' : 'none'} strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-                <button style={{ width: '40px', height: '40px', borderRadius: '9999px', background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(8px)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 12px rgba(0,0,0,0.12)' }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="18" cy="5" r="3" stroke="#667085" strokeWidth="2"/><circle cx="6" cy="12" r="3" stroke="#667085" strokeWidth="2"/><circle cx="18" cy="19" r="3" stroke="#667085" strokeWidth="2"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" stroke="#667085" strokeWidth="2"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" stroke="#667085" strokeWidth="2"/></svg>
-                </button>
-              </div>
+              {/* Photo counter pill only — heart+share moved to title row */}
               {/* Photo counter pill */}
               <div style={{ position: 'absolute', bottom: '16px', left: '16px', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(8px)', borderRadius: '9999px', padding: '4px 12px', fontFamily: 'Poppins,sans-serif', fontSize: '12px', color: '#fff', fontWeight: 500 }}>
                 {activeImg + 1} / {FAVOR.images.length}
               </div>
             </div>
-            {/* Right thumbnails + nav */}
+            {/* Right thumbnails — exactly 2, each 254px so combined = 520px incl 12px gap */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {FAVOR.images.map((img, i) => (
-                <div key={i} onClick={() => setActiveImg(i)}
-                  style={{ flex: 1, borderRadius: '16px', overflow: 'hidden', cursor: 'pointer', border: `2.5px solid ${activeImg === i ? '#A54AFF' : 'transparent'}`, boxShadow: activeImg === i ? '0 0 0 3px rgba(165,74,255,0.2)' : 'none', transition: 'all 0.15s', background: '#F3E8FF' }}>
-                  <img src={img} alt={`View ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: activeImg === i ? 1 : 0.75, transition: 'opacity 0.15s' }} />
-                </div>
-              ))}
+              {FAVOR.images.slice(1, 3).map((img, idx) => {
+                const i = idx + 1;
+                return (
+                  <div key={i} onClick={() => setActiveImg(i)}
+                    style={{ height: '254px', flexShrink: 0, borderRadius: '16px', overflow: 'hidden', cursor: 'pointer', border: `2.5px solid ${activeImg === i ? '#A54AFF' : 'transparent'}`, boxShadow: activeImg === i ? '0 0 0 3px rgba(165,74,255,0.2)' : 'none', transition: 'all 0.15s', background: '#F3E8FF' }}>
+                    <img src={img} alt={`View ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: activeImg === i ? 1 : 0.75, transition: 'opacity 0.15s' }} />
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -182,8 +174,34 @@ export default function FavorDetailPage() {
 
             {/* ── LEFT column ── */}
             <div>
-              {/* Title + categories */}
-              <h1 style={{ fontFamily: 'Poppins,sans-serif', fontWeight: 800, fontSize: '32px', color: '#101828', lineHeight: '1.2', letterSpacing: '-0.02em', marginBottom: '14px' }}>{FAVOR.title}</h1>
+              {/* Title row — h1 + heart & share inline */}
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '16px', marginBottom: '14px' }}>
+                <h1 style={{ fontFamily: 'Poppins,sans-serif', fontWeight: 800, fontSize: '32px', color: '#101828', lineHeight: '1.2', letterSpacing: '-0.02em' }}>{FAVOR.title}</h1>
+                <div style={{ display: 'flex', gap: '8px', flexShrink: 0, paddingTop: '4px' }}>
+                  <button onClick={() => setLiked(l => !l)}
+                    aria-label={liked ? 'Remove from saved' : 'Save favor'}
+                    style={{ width: '40px', height: '40px', borderRadius: '9999px', background: liked ? '#FFF1F3' : '#F9FAFB', border: `1.5px solid ${liked ? '#F43F5E' : '#EAECF0'}`, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s' }}>
+                    <svg viewBox="0 0 24 24" width="18" height="18">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                        stroke={liked ? '#F43F5E' : '#98A2B3'} strokeWidth="2" fill={liked ? '#F43F5E' : 'none'} strokeLinecap="round" strokeLinejoin="round" style={{ transition: 'all 0.15s' }} />
+                    </svg>
+                  </button>
+                  <button aria-label="Share"
+                    style={{ width: '40px', height: '40px', borderRadius: '9999px', background: '#F9FAFB', border: '1.5px solid #EAECF0', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'border-color 0.15s' }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = '#D0D5DD'; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = '#EAECF0'; }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="18" cy="5" r="3" stroke="#667085" strokeWidth="2"/><circle cx="6" cy="12" r="3" stroke="#667085" strokeWidth="2"/><circle cx="18" cy="19" r="3" stroke="#667085" strokeWidth="2"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" stroke="#667085" strokeWidth="2"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" stroke="#667085" strokeWidth="2"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Main category chip */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '8px' }}>
+                <span style={{ fontFamily: 'Poppins,sans-serif', fontSize: '12px', color: '#667085', fontWeight: 500 }}>Category:</span>
+                <span style={{ fontFamily: 'Poppins,sans-serif', fontSize: '12px', fontWeight: 600, color: '#344054', background: '#ffffff', border: '1px solid #EAECF0', borderRadius: '9999px', padding: '3px 14px', boxShadow: '0 1px 3px rgba(16,24,40,0.06)' }}>{FAVOR.mainCategory}</span>
+              </div>
+
+              {/* Sub-categories */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '20px' }}>
                 <span style={{ fontFamily: 'Poppins,sans-serif', fontSize: '12px', color: '#667085', fontWeight: 500 }}>Sub-category:</span>
                 {FAVOR.categories.map(c => (
@@ -355,23 +373,42 @@ export default function FavorDetailPage() {
                     See all
                   </button>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '16px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '20px' }}>
                   {MORE_FROM_PRO.map(f => (
                     <div key={f.id} onClick={() => router.push(`/favor/${f.id}`)}
-                      style={{ background: '#fff', border: '1.5px solid #EAECF0', borderRadius: '16px', overflow: 'hidden', cursor: 'pointer', transition: 'all 0.15s' }}
+                      style={{ background: '#fff', borderRadius: '20px', border: '1.5px solid #EAECF0', cursor: 'pointer', transition: 'border-color 0.2s, box-shadow 0.2s', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
                       onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(165,74,255,0.3)'; el.style.boxShadow = '0 8px 24px rgba(165,74,255,0.1)'; }}
                       onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = '#EAECF0'; el.style.boxShadow = 'none'; }}>
-                      <div style={{ height: '140px', overflow: 'hidden' }}>
-                        <img src={f.image} alt={f.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+
+                      {/* Image */}
+                      <div style={{ padding: '10px 10px 0', flexShrink: 0 }}>
+                        <div style={{ height: '160px', borderRadius: '14px', overflow: 'hidden' }}>
+                          <img src={f.image} alt={f.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }}
+                            onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.04)'; }}
+                            onMouseLeave={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'; }} />
+                        </div>
                       </div>
-                      <div style={{ padding: '12px 14px 14px' }}>
-                        <p style={{ fontFamily: 'Poppins,sans-serif', fontWeight: 600, fontSize: '13px', color: '#101828', lineHeight: '1.4', marginBottom: '8px' }}>{f.title}</p>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <Stars n={Math.round(f.rating)} size={11} />
-                            <span style={{ fontFamily: 'Poppins,sans-serif', fontSize: '11px', color: '#667085' }}>({f.reviews.toLocaleString()})</span>
+
+                      {/* Body */}
+                      <div style={{ padding: '12px 14px 14px', flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        {/* Title first */}
+                        <h3 style={{ fontFamily: 'Poppins,sans-serif', fontWeight: 600, fontSize: '13px', color: '#101828', lineHeight: '1.4', margin: 0 }}>{f.title}</h3>
+
+                        {/* Price */}
+                        <span style={{ fontFamily: 'Poppins,sans-serif', fontWeight: 700, fontSize: '16px', color: '#8E40FF' }}>from ${f.price}</span>
+
+                        {/* Provider + rating */}
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '8px', borderTop: '1px solid #EAECF0' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', overflow: 'hidden', flex: 1, minWidth: 0 }}>
+                            <img src={FAVOR.seller.avatar} alt={FAVOR.seller.name}
+                              style={{ width: '24px', height: '24px', borderRadius: '9999px', objectFit: 'cover', border: '1.5px solid #DFBAFF', flexShrink: 0 }} />
+                            <span style={{ fontFamily: 'Poppins,sans-serif', fontSize: '11px', fontWeight: 600, color: '#101828', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{FAVOR.seller.name}</span>
+                            <span style={{ fontFamily: 'Poppins,sans-serif', fontSize: '10px', fontWeight: 700, background: FAVOR.seller.badge === 'Pro' ? '#FEC84B' : 'linear-gradient(135deg,#34D399,#079455)', color: FAVOR.seller.badge === 'Pro' ? '#1D2939' : '#fff', borderRadius: '9999px', padding: '2px 7px', flexShrink: 0 }}>{FAVOR.seller.badge}</span>
                           </div>
-                          <p style={{ fontFamily: 'Poppins,sans-serif', fontWeight: 800, fontSize: '16px', background: GRAD, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>from ${f.price}</p>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '3px', flexShrink: 0 }}>
+                            <Stars n={Math.round(f.rating)} size={11} />
+                            <span style={{ fontFamily: 'Poppins,sans-serif', fontSize: '11px', color: '#667085' }}>{f.reviews.toLocaleString()}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -476,19 +513,6 @@ export default function FavorDetailPage() {
                 </div>
               </div>
 
-              {/* Trust badges */}
-              <div style={{ marginTop: '16px', background: '#fff', border: '1.5px solid #EAECF0', borderRadius: '16px', padding: '16px 20px' }}>
-                {[
-                  { icon: '🔒', label: 'Secure payment protected' },
-                  { icon: '✅', label: 'Background-verified seller' },
-                  { icon: '↩️', label: 'Satisfaction guarantee' },
-                ].map(t => (
-                  <div key={t.label} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 0', borderBottom: '1px solid #F2F4F7' }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#F4EBFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px', flexShrink: 0 }}>{t.icon}</div>
-                    <p style={{ fontFamily: 'Poppins,sans-serif', fontSize: '12px', color: '#344054', fontWeight: 500 }}>{t.label}</p>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
 
@@ -531,24 +555,29 @@ export default function FavorDetailPage() {
                   style={{ background: '#fff', borderRadius: '20px', border: '1.5px solid #EAECF0', cursor: 'pointer', transition: 'all 0.15s', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
                   onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(165,74,255,0.3)'; el.style.boxShadow = '0 8px 24px rgba(165,74,255,0.1)'; el.style.transform = 'translateY(-2px)'; }}
                   onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = '#EAECF0'; el.style.boxShadow = 'none'; el.style.transform = 'translateY(0)'; }}>
-                  <div style={{ position: 'relative', padding: '10px 10px 0' }}>
+                  <div style={{ padding: '10px 10px 0', flexShrink: 0 }}>
                     <div style={{ height: '180px', borderRadius: '14px', overflow: 'hidden' }}>
-                      <img src={f.image} alt={f.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <img src={f.image} alt={f.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s' }}
+                        onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.04)'; }}
+                        onMouseLeave={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'; }} />
                     </div>
-                    <div style={{ position: 'absolute', top: '20px', right: '20px', background: f.badge === 'Pro' ? GRAD : 'linear-gradient(135deg,#34D399,#079455)', borderRadius: '9999px', padding: '3px 10px', fontFamily: 'Poppins,sans-serif', fontSize: '10px', fontWeight: 700, color: '#fff' }}>{f.badge}</div>
                   </div>
-                  <div style={{ padding: '14px 14px 16px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                      <img src={f.sellerAvatar} alt={f.seller} style={{ width: '28px', height: '28px', borderRadius: '9999px', objectFit: 'cover', border: '1.5px solid #DFBAFF', flexShrink: 0 }} />
-                      <p style={{ fontFamily: 'Poppins,sans-serif', fontSize: '12px', fontWeight: 600, color: '#344054', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{f.seller}</p>
-                    </div>
-                    <p style={{ fontFamily: 'Poppins,sans-serif', fontWeight: 600, fontSize: '14px', color: '#101828', lineHeight: '1.4', flex: 1, marginBottom: '12px' }}>{f.title}</p>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '10px', borderTop: '1px solid #EAECF0' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <Stars n={Math.round(f.rating)} size={12} />
-                        <span style={{ fontFamily: 'Poppins,sans-serif', fontSize: '11px', color: '#98A2B3' }}>({f.reviews})</span>
+                  <div style={{ padding: '12px 14px 14px', flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {/* Title first */}
+                    <p style={{ fontFamily: 'Poppins,sans-serif', fontWeight: 600, fontSize: '14px', color: '#101828', lineHeight: '1.4', margin: 0 }}>{f.title}</p>
+                    {/* Price */}
+                    <span style={{ fontFamily: 'Poppins,sans-serif', fontWeight: 700, fontSize: '18px', color: '#8E40FF' }}>${f.price}</span>
+                    {/* Provider + rating */}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '8px', borderTop: '1px solid #EAECF0' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', overflow: 'hidden', flex: 1, minWidth: 0 }}>
+                        <img src={f.sellerAvatar} alt={f.seller} style={{ width: '26px', height: '26px', borderRadius: '9999px', objectFit: 'cover', border: '1.5px solid #DFBAFF', flexShrink: 0 }} />
+                        <span style={{ fontFamily: 'Poppins,sans-serif', fontSize: '12px', fontWeight: 600, color: '#344054', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{f.seller}</span>
+                        <span style={{ fontFamily: 'Poppins,sans-serif', fontSize: '10px', fontWeight: 700, background: f.badge === 'Pro' ? '#FEC84B' : 'linear-gradient(135deg,#34D399,#079455)', color: f.badge === 'Pro' ? '#1D2939' : '#fff', borderRadius: '9999px', padding: '2px 7px', flexShrink: 0 }}>{f.badge}</span>
                       </div>
-                      <p style={{ fontFamily: 'Poppins,sans-serif', fontWeight: 800, fontSize: '18px', background: GRAD, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>${f.price}</p>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '3px', flexShrink: 0 }}>
+                        <Stars n={Math.round(f.rating)} size={12} />
+                        <span style={{ fontFamily: 'Poppins,sans-serif', fontSize: '11px', color: '#667085' }}>({f.reviews})</span>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { WrenchIcon, ShieldCheckIcon, ArrowRightIcon, ArrowUpRightIcon } from './Icons';
 
 const SERVICE_IMAGE =
@@ -10,9 +11,13 @@ const SELLER_AVATAR =
 // Amber matches the navbar "Get App" CTA — #FEC84B
 const AMBER = '#FEC84B';
 
-function LearnMoreRow({ light = false }: { light?: boolean }) {
+function LearnMoreRow({ light = false, href }: { light?: boolean; href?: string }) {
+  const router = useRouter();
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+    <div
+      onClick={() => href && router.push(href)}
+      style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: href ? 'pointer' : 'default' }}
+    >
       <span
         style={{
           fontFamily: 'Poppins, sans-serif',
@@ -42,6 +47,7 @@ function LearnMoreRow({ light = false }: { light?: boolean }) {
 }
 
 export default function WhyChooseUsSection() {
+  const router = useRouter();
   return (
     <section style={{ padding: '96px 0', background: '#ffffff' }}>
       <div className="container">
@@ -100,6 +106,7 @@ export default function WhyChooseUsSection() {
           <div
             data-animate
             data-delay="1"
+            onClick={() => router.push('/articles/deep-home-cleaning')}
             style={{
               background: '#F7F7F7',
               borderRadius: '20px',
@@ -107,7 +114,11 @@ export default function WhyChooseUsSection() {
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
+              cursor: 'pointer',
+              transition: 'box-shadow 0.25s ease, transform 0.25s ease',
             }}
+            onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = '0 8px 32px rgba(165,74,255,0.14)'; el.style.transform = 'translateY(-2px)'; }}
+            onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = 'none'; el.style.transform = 'none'; }}
           >
             <div style={{ overflow: 'hidden', flexShrink: 0 }}>
               <img
@@ -126,7 +137,7 @@ export default function WhyChooseUsSection() {
                 Professional cleaning service for your entire home, available
                 when you need it most. Trusted by hundreds of happy customers.
               </p>
-              <LearnMoreRow />
+              <LearnMoreRow href="/articles/deep-home-cleaning" />
             </div>
           </div>
 
@@ -134,6 +145,7 @@ export default function WhyChooseUsSection() {
           <div
             data-animate
             data-delay="2"
+            onClick={() => router.push('/articles/how-it-works')}
             style={{
               background: '#EDE9FE',
               borderRadius: '20px',
@@ -141,7 +153,11 @@ export default function WhyChooseUsSection() {
               display: 'flex',
               flexDirection: 'column',
               overflow: 'hidden',
+              cursor: 'pointer',
+              transition: 'box-shadow 0.25s ease, transform 0.25s ease',
             }}
+            onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = '0 8px 32px rgba(124,58,237,0.18)'; el.style.transform = 'translateY(-2px)'; }}
+            onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = 'none'; el.style.transform = 'none'; }}
           >
             {/* Author pill — padded */}
             <div style={{ padding: '22px 24px 0' }}>
@@ -193,14 +209,12 @@ export default function WhyChooseUsSection() {
             {/* Bottom text — padded */}
             <div style={{ padding: '0 24px 24px' }}>
               <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: '22px', color: '#1E1B4B', marginBottom: '8px', lineHeight: '1.3' }}>
-                I will deep clean
-                <br />
-                your home
+                How WhoCan Connects You with the Right Handyman
               </h3>
               <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '13px', color: '#4C1D95', lineHeight: '1.6', marginBottom: '20px', opacity: 0.72 }}>
                 Trusted by hundreds of homeowners across the city
               </p>
-              <LearnMoreRow light />
+              <LearnMoreRow light href="/articles/how-it-works" />
             </div>
           </div>
 
@@ -211,6 +225,7 @@ export default function WhyChooseUsSection() {
             <div
               data-animate
               data-delay="3"
+              onClick={() => router.push('/articles/trusted-local-providers')}
               style={{
                 background: '#F7F7F7',
                 borderRadius: '20px',
@@ -219,13 +234,17 @@ export default function WhyChooseUsSection() {
                 flexDirection: 'column',
                 flex: 1,
                 overflow: 'hidden',
+                cursor: 'pointer',
+                transition: 'box-shadow 0.25s ease, transform 0.25s ease',
               }}
+              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = '0 8px 32px rgba(165,74,255,0.14)'; el.style.transform = 'translateY(-2px)'; }}
+              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = 'none'; el.style.transform = 'none'; }}
             >
               <div style={{ overflow: 'hidden', flexShrink: 0 }}>
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&auto=format&q=75"
+                  src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&h=200&fit=crop&auto=format&q=80"
                   alt="Trusted Local Providers"
-                  style={{ width: '100%', height: '130px', objectFit: 'cover', objectPosition: 'center top', display: 'block', transition: 'transform 0.4s ease' }}
+                  style={{ width: '100%', height: '130px', objectFit: 'cover', objectPosition: 'center center', display: 'block', transition: 'transform 0.4s ease' }}
                   onMouseEnter={(e) => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.04)'; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'; }}
                 />
@@ -238,7 +257,7 @@ export default function WhyChooseUsSection() {
                   All handymen are background-checked, reviewed, and rated by
                   real customers in your area.
                 </p>
-                <LearnMoreRow />
+                <LearnMoreRow href="/articles/trusted-local-providers" />
               </div>
             </div>
 

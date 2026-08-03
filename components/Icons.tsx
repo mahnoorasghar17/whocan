@@ -97,6 +97,52 @@ export function PackageIcon({ size = 24, color = 'currentColor', style }: IconPr
   );
 }
 
+export function HammerIcon({ size = 24, color = 'currentColor', style }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" style={{ ...base(size, color), ...style }}>
+      <path {...S} d="M15 12l-8.5 8.5a2.121 2.121 0 0 1-3-3L12 9" />
+      <path {...S} d="M17.64 15L22 10.64" />
+      <path {...S} d="m20.91 11.7-1.25-1.25c.037-.264.594-1.68 .594-1.68l-2.335-2.335s-1.42.557-1.68.594L15 5.78c0-.264.558-1.68.558-1.68L12.23 1.77a1 1 0 0 0-1.414 0L8.16 4.42a1 1 0 0 0 0 1.415l1.25 1.25c-.037.264-.594 1.68-.594 1.68l2.335 2.335s1.42-.558 1.68-.594L14.22 11.8c0 .264-.558 1.68-.558 1.68l2.335 2.335s1.42-.557 1.68-.594l1.25 1.25a1 1 0 0 0 1.414 0l2.648-2.648a1 1 0 0 0 0-1.414z" />
+    </svg>
+  );
+}
+
+export function ShieldIcon({ size = 24, color = 'currentColor', style }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" style={{ ...base(size, color), ...style }}>
+      <path {...S} d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    </svg>
+  );
+}
+
+export function BugIcon({ size = 24, color = 'currentColor', style }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" style={{ ...base(size, color), ...style }}>
+      <path {...S} d="M8 2l1.88 1.88" />
+      <path {...S} d="M14.12 3.88L16 2" />
+      <path {...S} d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1" />
+      <path {...S} d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6z" />
+      <path {...S} d="M12 20v-9" />
+      <path {...S} d="M6.53 9C4.6 8.8 2.96 7.58 2 6" />
+      <path {...S} d="M6 13H2" />
+      <path {...S} d="M3 19c1.1-1.22 2.49-2 4-2" />
+      <path {...S} d="M20 6c-.96 1.58-2.6 2.8-4.53 3" />
+      <path {...S} d="M18 13h4" />
+      <path {...S} d="M17 17c1.51 0 2.9.78 4 2" />
+    </svg>
+  );
+}
+
+export function ToolboxIcon({ size = 24, color = 'currentColor', style }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" style={{ ...base(size, color), ...style }}>
+      <path {...S} d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+      <line {...S} x1="12" y1="11" x2="12" y2="17" />
+      <line {...S} x1="9" y1="14" x2="15" y2="14" />
+    </svg>
+  );
+}
+
 // ── Why Choose Us icons ────────────────────────────────────────────────────────
 
 export function LinkIcon({ size = 24, color = 'currentColor', style }: IconProps) {

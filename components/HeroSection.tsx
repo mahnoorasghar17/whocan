@@ -11,8 +11,7 @@ const CATEGORIES = [
   { icon: ZapIcon,      label: 'Electrical' },
 ];
 
-const HERO_IMAGE =
-  'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=700&fit=crop&auto=format&q=75';
+const HERO_IMAGE = '/hero.png';
 
 export default function HeroSection() {
   const router = useRouter();
@@ -272,7 +271,7 @@ export default function HeroSection() {
             {/* Quick category filters — selectable */}
             <div
               className="hero-text-4"
-              style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}
+              style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center' }}
             >
               {CATEGORIES.map((cat) => {
                 const active = selectedCat === cat.label;
@@ -303,6 +302,34 @@ export default function HeroSection() {
                   </button>
                 );
               })}
+              {/* More → All categories */}
+              <button
+                onClick={() => router.push('/categories')}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  background: 'transparent',
+                  border: 'none',
+                  borderRadius: '9999px',
+                  padding: '7px 4px',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  color: 'rgba(165,74,255,0.9)',
+                  fontFamily: 'Poppins, sans-serif',
+                  cursor: 'pointer',
+                  transition: 'color 0.15s ease',
+                  textDecoration: 'underline',
+                  textUnderlineOffset: '3px',
+                }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#BF75FF'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(165,74,255,0.9)'; }}
+              >
+                More
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
             </div>
 
             {/* Stats strip */}
@@ -373,12 +400,13 @@ export default function HeroSection() {
               className="animate-float hero-image"
               style={{
                 width: '100%',
-                maxWidth: '520px',
+                maxWidth: '540px',
                 height: 'auto',
                 objectFit: 'contain',
                 position: 'relative',
                 zIndex: 1,
-                filter: 'drop-shadow(0 32px 48px rgba(165, 74, 255, 0.25))',
+                filter: 'drop-shadow(0 24px 40px rgba(0,0,0,0.35))',
+                borderRadius: '24px',
               }}
             />
 
